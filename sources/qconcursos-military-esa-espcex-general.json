@@ -2,11 +2,12 @@
   "schema_version": 1,
   "source": "QConcursos",
   "verified_at": "2026-09-11",
-  "purpose": "Expand only ESA General and EsPCEx general-admission exams using source-page PDF discovery.",
+  "purpose": "Expand only ESA General and EsPCEx general-admission exams with verified direct PDF URLs.",
   "notes": [
-    "New ESA entries are limited to the general area; Saúde and Músico are not expanded here.",
+    "ESA additions are limited to the general area; Saúde and Músico are intentionally not expanded.",
+    "The generated esa.zip is filtered to general-area entries only.",
     "EsPCEx entries may include both exam days because both days compose the general Cadet admission exam.",
-    "No QConcursos arquivo IDs are guessed: the workflow must discover exactly one prova and one gabarito from each verified source page."
+    "No QConcursos arquivo IDs are guessed; every URL below was obtained from a verified QConcursos download link."
   ],
   "collections": [
     {
@@ -17,7 +18,58 @@
           "year": 2024,
           "label": "EsSA - Sargento Geral",
           "source_page": "https://www.qconcursos.com/questoes-militares/provas/exercito-2024-essa-sargento-geral",
-          "filename_prefix": "2024-essa-sargento-geral"
+          "files": [
+            {
+              "kind": "prova",
+              "filename": "2024-essa-sargento-geral-prova.pdf",
+              "url": "https://arquivos.qconcursos.com/prova/arquivo_prova/131502/exercito-2024-essa-sargento-geral-prova.pdf"
+            },
+            {
+              "kind": "gabarito",
+              "filename": "2024-essa-sargento-geral-gabarito.pdf",
+              "url": "https://arquivos.qconcursos.com/prova/arquivo_gabarito/131502/exercito-2024-essa-sargento-geral-gabarito.pdf"
+            }
+          ]
+        },
+        {
+          "year": 2019,
+          "label": "EsSA - Sargento Área Geral/Aviação",
+          "source_page": "https://www.qconcursos.com/questoes-militares/provas/exercito-2019-essa-sargento-area-geral-aviacao",
+          "files": [
+            {
+              "kind": "prova",
+              "filename": "2019-essa-sargento-area-geral-aviacao-prova.pdf",
+              "url": "https://arquivos.qconcursos.com/prova/arquivo_prova/66857/exercito-2019-essa-sargento-area-geral-aviacao-prova.pdf"
+            },
+            {
+              "kind": "gabarito",
+              "filename": "2019-essa-sargento-area-geral-aviacao-gabarito.pdf",
+              "url": "https://arquivos.qconcursos.com/prova/arquivo_gabarito/66857/exercito-2019-essa-sargento-area-geral-aviacao-gabarito.pdf"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "espcex",
+      "display_name": "EsPCEx",
+      "exams": [
+        {
+          "year": 2024,
+          "label": "EsPCEx - Cadete do Exército - 2º Dia",
+          "source_page": "https://www.qconcursos.com/questoes-militares/provas/exercito-2024-espcex-cadete-do-exercito-2-dia",
+          "files": [
+            {
+              "kind": "prova",
+              "filename": "2024-espcex-cadete-2-dia-prova.pdf",
+              "url": "https://arquivos.qconcursos.com/prova/arquivo_prova/137017/exercito-2024-espcex-cadete-do-exercito-2-dia-prova.pdf"
+            },
+            {
+              "kind": "gabarito",
+              "filename": "2024-espcex-cadete-2-dia-gabarito.pdf",
+              "url": "https://arquivos.qconcursos.com/prova/arquivo_gabarito/137017/exercito-2024-espcex-cadete-do-exercito-2-dia-gabarito.pdf"
+            }
+          ]
         }
       ]
     }
