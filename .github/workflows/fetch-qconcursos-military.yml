@@ -106,6 +106,18 @@ jobs:
                           "exams": exams,
                           "source_manifests": collection["source_manifests"],
                       })
+              elif slug == "esa":
+                  exams = [
+                      exam for exam in collection["exams"]
+                      if "geral" in exam.get("label", "").lower()
+                  ]
+                  packages.append({
+                      "package_id": slug,
+                      "collection_id": slug,
+                      "display_name": collection["display_name"],
+                      "exams": exams,
+                      "source_manifests": collection["source_manifests"],
+                  })
               else:
                   packages.append({
                       "package_id": slug,
