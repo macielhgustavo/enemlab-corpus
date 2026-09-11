@@ -1,0 +1,112 @@
+{
+  "schema_version": 1,
+  "source": "QConcursos",
+  "purpose": "Additional EEAR 2021 PDFs verified from the QConcursos military exam archive.",
+  "collections": [
+    {
+      "id": "eear",
+      "display_name": "EEAR",
+      "exams": [
+        {
+          "year": 2021,
+          "label": "EEAR CFS 2/2022 - Aeronavegantes e Não-Aeronavegantes - Turma 2",
+          "source_page": "https://www.qconcursos.com/questoes-militares/provas?by_institute%5B%5D=6284&page=2",
+          "files": [
+            {"kind":"prova","filename":"2021-eear-cfs-turma-2-aeronavegantes-prova.pdf","url":"https://arquivos.qconcursos.com/prova/arquivo_prova/85682/aeronautica-2021-eear-sargento-da-aeronautica-aeronavegantes-e-nao-aeronavegantes-turma-2-prova.pdf"},
+            {"kind":"gabarito","filename":"2021-eear-cfs-turma-2-aeronavegantes-gabarito.pdf","url":"https://arquivos.qconcursos.com/prova/arquivo_gabarito/85682/aeronautica-2021-eear-sargento-da-aeronautica-aeronavegantes-e-nao-aeronavegantes-turma-2-gabarito.pdf"}
+          ]
+        },
+        {
+          "year": 2021,
+          "label": "EEAR CFS 2/2022 - Controle de Tráfego Aéreo - Turma 2",
+          "source_page": "https://www.qconcursos.com/questoes-militares/provas?by_institute%5B%5D=6284&page=2",
+          "files": [
+            {"kind":"prova","filename":"2021-eear-cfs-turma-2-bct-prova.pdf","url":"https://arquivos.qconcursos.com/prova/arquivo_prova/85683/aeronautica-2021-eear-sargento-da-aeronautica-controle-de-trafego-aereo-turma-2-prova.pdf"},
+            {"kind":"gabarito","filename":"2021-eear-cfs-turma-2-bct-gabarito.pdf","url":"https://arquivos.qconcursos.com/prova/arquivo_gabarito/85683/aeronautica-2021-eear-sargento-da-aeronautica-controle-de-trafego-aereo-turma-2-gabarito.pdf"}
+          ]
+        },
+        {
+          "year": 2021,
+          "label": "EEAR CFS - Controle de Tráfego Aéreo",
+          "source_page": "https://www.qconcursos.com/questoes-militares/provas?by_institute%5B%5D=6284&page=2",
+          "files": [
+            {"kind":"prova","filename":"2021-eear-cfs-bct-prova.pdf","url":"https://arquivos.qconcursos.com/prova/arquivo_prova/82629/aeronautica-2021-eear-controle-de-trafego-aereo-prova.pdf"},
+            {"kind":"gabarito","filename":"2021-eear-cfs-bct-gabarito.pdf","url":"https://arquivos.qconcursos.com/prova/arquivo_gabarito/82629/aeronautica-2021-eear-controle-de-trafego-aereo-gabarito.pdf"}
+          ]
+        },
+        {
+          "year": 2021,
+          "label": "EEAR EAGS 2022 - Eletrônica",
+          "source_page": "https://www.qconcursos.com/questoes-militares/provas?by_institute%5B%5D=6284&page=2",
+          "files": [
+            {"kind":"prova","filename":"2021-eear-eags-eletronica-prova.pdf","url":"https://arquivos.qconcursos.com/prova/arquivo_prova/82631/aeronautica-2021-eear-eletronica-prova.pdf"},
+            {"kind":"gabarito","filename":"2021-eear-eags-eletronica-gabarito.pdf","url":"https://arquivos.qconcursos.com/prova/arquivo_gabarito/82631/aeronautica-2021-eear-eletronica-gabarito.pdf"}
+          ]
+        },
+        {
+          "year": 2021,
+          "label": "EEAR EAGS 2022 - Administração",
+          "source_page": "https://www.qconcursos.com/questoes-militares/provas?by_institute%5B%5D=6284&page=2",
+          "files": [
+            {"kind":"prova","filename":"2021-eear-eags-administracao-prova.pdf","url":"https://arquivos.qconcursos.com/prova/arquivo_prova/82632/aeronautica-2021-eear-administracao-prova.pdf"},
+            {"kind":"gabarito","filename":"2021-eear-eags-administracao-gabarito.pdf","url":"https://arquivos.qconcursos.com/prova/arquivo_gabarito/82632/aeronautica-2021-eear-administracao-gabarito.pdf"}
+          ]
+        },
+        {
+          "year": 2021,
+          "label": "EEAR EAGS 2022 - Enfermagem",
+          "source_page": "https://www.qconcursos.com/questoes-militares/provas?by_institute%5B%5D=6284&page=2",
+          "files": [
+            {"kind":"prova","filename":"2021-eear-eags-enfermagem-prova.pdf","url":"https://arquivos.qconcursos.com/prova/arquivo_prova/82633/aeronautica-2021-eear-enfermagem-prova.pdf"},
+            {"kind":"gabarito","filename":"2021-eear-eags-enfermagem-gabarito.pdf","url":"https://arquivos.qconcursos.com/prova/arquivo_gabarito/82633/aeronautica-2021-eear-enfermagem-gabarito.pdf"}
+          ]
+        },
+        {
+          "year": 2021,
+          "label": "EEAR EAGS 2022 - Informática",
+          "source_page": "https://www.qconcursos.com/questoes-militares/provas?by_institute%5B%5D=6284&page=2",
+          "files": [
+            {"kind":"prova","filename":"2021-eear-eags-informatica-prova.pdf","url":"https://arquivos.qconcursos.com/prova/arquivo_prova/82634/aeronautica-2021-eear-informatica-prova.pdf"},
+            {"kind":"gabarito","filename":"2021-eear-eags-informatica-gabarito.pdf","url":"https://arquivos.qconcursos.com/prova/arquivo_gabarito/82634/aeronautica-2021-eear-informatica-gabarito.pdf"}
+          ]
+        },
+        {
+          "year": 2021,
+          "label": "EEAR EAGS 2022 - Eletricidade",
+          "source_page": "https://www.qconcursos.com/questoes-militares/provas?by_institute%5B%5D=6284&page=2",
+          "files": [
+            {"kind":"prova","filename":"2021-eear-eags-eletricidade-prova.pdf","url":"https://arquivos.qconcursos.com/prova/arquivo_prova/82635/aeronautica-2021-eear-eletricidade-prova.pdf"},
+            {"kind":"gabarito","filename":"2021-eear-eags-eletricidade-gabarito.pdf","url":"https://arquivos.qconcursos.com/prova/arquivo_gabarito/82635/aeronautica-2021-eear-eletricidade-gabarito.pdf"}
+          ]
+        },
+        {
+          "year": 2021,
+          "label": "EEAR EAGS 2022 - Radiologia",
+          "source_page": "https://www.qconcursos.com/questoes-militares/provas?by_institute%5B%5D=6284&page=2",
+          "files": [
+            {"kind":"prova","filename":"2021-eear-eags-radiologia-prova.pdf","url":"https://arquivos.qconcursos.com/prova/arquivo_prova/82636/aeronautica-2021-eear-radiologia-prova.pdf"},
+            {"kind":"gabarito","filename":"2021-eear-eags-radiologia-gabarito.pdf","url":"https://arquivos.qconcursos.com/prova/arquivo_gabarito/82636/aeronautica-2021-eear-radiologia-gabarito.pdf"}
+          ]
+        },
+        {
+          "year": 2021,
+          "label": "EEAR EAGS 2022 - Laboratório",
+          "source_page": "https://www.qconcursos.com/questoes-militares/provas?by_institute%5B%5D=6284&page=2",
+          "files": [
+            {"kind":"prova","filename":"2021-eear-eags-laboratorio-prova.pdf","url":"https://arquivos.qconcursos.com/prova/arquivo_prova/82637/aeronautica-2021-eear-laboratorio-prova.pdf"},
+            {"kind":"gabarito","filename":"2021-eear-eags-laboratorio-gabarito.pdf","url":"https://arquivos.qconcursos.com/prova/arquivo_gabarito/82637/aeronautica-2021-eear-laboratorio-gabarito.pdf"}
+          ]
+        },
+        {
+          "year": 2021,
+          "label": "EEAR EAGS 2022 - Topografia",
+          "source_page": "https://www.qconcursos.com/questoes-militares/provas?by_institute%5B%5D=6284&page=2",
+          "files": [
+            {"kind":"prova","filename":"2021-eear-eags-topografia-prova.pdf","url":"https://arquivos.qconcursos.com/prova/arquivo_prova/82638/aeronautica-2021-eear-topografia-prova.pdf"},
+            {"kind":"gabarito","filename":"2021-eear-eags-topografia-gabarito.pdf","url":"https://arquivos.qconcursos.com/prova/arquivo_gabarito/82638/aeronautica-2021-eear-topografia-gabarito.pdf"}
+          ]
+        }
+      ]
+    }
+  ]
+}
