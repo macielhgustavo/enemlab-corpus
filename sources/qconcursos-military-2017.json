@@ -1,6 +1,7 @@
 {
   "schema_version": 1,
   "source": "QConcursos",
+  "verified_at": "2026-09-11",
   "purpose": "Verified direct-download EEAR 2017 PDFs exposed by QConcursos.",
   "notes": [
     "Only entries whose direct Prova and Gabarito links were exposed by the verified QConcursos page are included.",
