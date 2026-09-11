@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "source": "QConcursos",
+  "purpose": "Verified direct-download EEAR 2019 PDFs exposed by QConcursos.",
+  "notes": [
+    "Only entries whose direct PDF URLs were exposed and verified during this collection pass are included.",
+    "Several other 2019 EEAR pages exist in QConcursos but did not expose direct downloadable files in the verified page snapshot, so they are intentionally omitted rather than guessed.",
+    "The QConcursos prova PDFs for these EAGS entries contain the provisional answer key with commented resolutions; the separate gabarito PDFs are the official answer-key documents exposed by QConcursos."
+  ],
+  "collections": [
+    {
+      "id": "eear",
+      "display_name": "EEAR",
+      "exams": [
+        {
+          "year": 2019,
+          "label": "EEAR EAGS - Administração",
+          "source_page": "https://www.qconcursos.com/questoes-militares/provas/aeronautica-2019-eear-sargento-da-aeronautica-administracao",
+          "files": [
+            {
+              "kind": "prova",
+              "filename": "2019-eear-eags-administracao-prova.pdf",
+              "url": "https://arquivos.qconcursos.com/prova/arquivo_prova/61692/aeronautica-2019-eear-sargento-da-aeronautica-administracao-prova.pdf"
+            },
+            {
+              "kind": "gabarito",
+              "filename": "2019-eear-eags-administracao-gabarito.pdf",
+              "url": "https://arquivos.qconcursos.com/prova/arquivo_gabarito/61692/aeronautica-2019-eear-sargento-da-aeronautica-administracao-gabarito.pdf"
+            }
+          ]
+        },
+        {
+          "year": 2019,
+          "label": "EEAR EAGS - Enfermagem",
+          "source_page": "https://www.qconcursos.com/questoes-militares/provas/aeronautica-2019-eear-sargento-da-aeronautica-enfermagem",
+          "files": [
+            {
+              "kind": "prova",
+              "filename": "2019-eear-eags-enfermagem-prova.pdf",
+              "url": "https://arquivos.qconcursos.com/prova/arquivo_prova/61693/aeronautica-2019-eear-sargento-da-aeronautica-enfermagem-prova.pdf"
+            },
+            {
+              "kind": "gabarito",
+              "filename": "2019-eear-eags-enfermagem-gabarito.pdf",
+              "url": "https://arquivos.qconcursos.com/prova/arquivo_gabarito/61693/aeronautica-2019-eear-sargento-da-aeronautica-enfermagem-gabarito.pdf"
+            }
+          ]
+        },
+        {
+          "year": 2019,
+          "label": "EEAR EAGS - Eletrônica",
+          "source_page": "https://www.qconcursos.com/questoes-militares/provas/aeronautica-2019-eear-sargento-da-aeronautica-eletronica",
+          "files": [
+            {
+              "kind": "prova",
+              "filename": "2019-eear-eags-eletronica-prova.pdf",
+              "url": "https://arquivos.qconcursos.com/prova/arquivo_prova/61691/aeronautica-2019-eear-sargento-da-aeronautica-eletronica-prova.pdf"
+            },
+            {
+              "kind": "gabarito",
+              "filename": "2019-eear-eags-eletronica-gabarito.pdf",
+              "url": "https://arquivos.qconcursos.com/prova/arquivo_gabarito/61691/aeronautica-2019-eear-sargento-da-aeronautica-eletronica-gabarito.pdf"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
