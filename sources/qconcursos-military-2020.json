@@ -1,0 +1,155 @@
+{
+  "schema_version": 1,
+  "source": "QConcursos",
+  "purpose": "Additional EEAR 2020 PDFs verified from the QConcursos military exam archive, including post-exam appeal/alteration documents where exposed.",
+  "collections": [
+    {
+      "id": "eear",
+      "display_name": "EEAR",
+      "exams": [
+        {
+          "year": 2020,
+          "label": "EEAR CFS 2/2021 - Aeronavegantes e Não-Aeronavegantes - Turma 2",
+          "source_page": "https://www.qconcursos.com/questoes-militares/provas?by_institute%5B%5D=6284&page=3",
+          "files": [
+            {"kind":"prova","filename":"2020-eear-cfs-turma-2-aeronavegantes-prova.pdf","url":"https://arquivos.qconcursos.com/prova/arquivo_prova/78906/aeronautica-2020-eear-sargento-da-aeronautica-aeronavegantes-e-nao-aeronavegantes-turma-2-prova.pdf"},
+            {"kind":"gabarito","filename":"2020-eear-cfs-turma-2-aeronavegantes-gabarito.pdf","url":"https://arquivos.qconcursos.com/prova/arquivo_gabarito/78906/aeronautica-2020-eear-sargento-da-aeronautica-aeronavegantes-e-nao-aeronavegantes-turma-2-gabarito.pdf"}
+          ]
+        },
+        {
+          "year": 2020,
+          "label": "EEAR CFS 2/2021 - Controle de Tráfego Aéreo - Turma 2",
+          "source_page": "https://www.qconcursos.com/questoes-militares/provas?by_institute%5B%5D=6284&page=3",
+          "files": [
+            {"kind":"prova","filename":"2020-eear-cfs-turma-2-bct-prova.pdf","url":"https://arquivos.qconcursos.com/prova/arquivo_prova/78907/aeronautica-2020-eear-sargento-da-aeronautica-controle-de-trafego-aereo-turma-2-prova.pdf"},
+            {"kind":"gabarito","filename":"2020-eear-cfs-turma-2-bct-gabarito.pdf","url":"https://arquivos.qconcursos.com/prova/arquivo_gabarito/78907/aeronautica-2020-eear-sargento-da-aeronautica-controle-de-trafego-aereo-turma-2-gabarito.pdf"}
+          ]
+        },
+        {
+          "year": 2020,
+          "label": "EEAR CFS 1/2021 - Aeronavegantes e Não-Aeronavegantes - Turma 1",
+          "source_page": "https://www.qconcursos.com/questoes-militares/provas?by_institute%5B%5D=6284&page=3",
+          "files": [
+            {"kind":"prova","filename":"2020-eear-cfs-turma-1-aeronavegantes-prova.pdf","url":"https://arquivos.qconcursos.com/prova/arquivo_prova/78908/aeronautica-2020-eear-sargento-da-aeronautica-aeronavegantes-e-nao-aeronavegantes-turma-1-prova.pdf"},
+            {"kind":"gabarito","filename":"2020-eear-cfs-turma-1-aeronavegantes-gabarito.pdf","url":"https://arquivos.qconcursos.com/prova/arquivo_gabarito/78908/aeronautica-2020-eear-sargento-da-aeronautica-aeronavegantes-e-nao-aeronavegantes-turma-1-gabarito.pdf"}
+          ]
+        },
+        {
+          "year": 2020,
+          "label": "EEAR CFS 1/2021 - Controle de Tráfego Aéreo - Turma 1",
+          "source_page": "https://www.qconcursos.com/questoes-militares/provas?by_institute%5B%5D=6284&page=3",
+          "files": [
+            {"kind":"prova","filename":"2020-eear-cfs-turma-1-bct-prova.pdf","url":"https://arquivos.qconcursos.com/prova/arquivo_prova/78909/aeronautica-2020-eear-sargento-da-aeronautica-controle-de-trafego-aereo-turma-1-prova.pdf"},
+            {"kind":"gabarito","filename":"2020-eear-cfs-turma-1-bct-gabarito.pdf","url":"https://arquivos.qconcursos.com/prova/arquivo_gabarito/78909/aeronautica-2020-eear-sargento-da-aeronautica-controle-de-trafego-aereo-turma-1-gabarito.pdf"}
+          ]
+        },
+        {
+          "year": 2020,
+          "label": "EEAR EAGS 2021 - Topografia",
+          "source_page": "https://www.qconcursos.com/questoes-militares/provas?by_institute%5B%5D=6284&page=3",
+          "files": [
+            {"kind":"prova","filename":"2020-eear-eags-topografia-prova.pdf","url":"https://arquivos.qconcursos.com/prova/arquivo_prova/78153/aeronautica-2020-eear-sargento-da-aeronautica-topografia-prova.pdf"},
+            {"kind":"gabarito","filename":"2020-eear-eags-topografia-gabarito.pdf","url":"https://arquivos.qconcursos.com/prova/arquivo_gabarito/78153/aeronautica-2020-eear-sargento-da-aeronautica-topografia-gabarito.pdf"}
+          ]
+        },
+        {
+          "year": 2020,
+          "label": "EEAR EAGS 2021 - Administração",
+          "source_page": "https://www.qconcursos.com/questoes-militares/provas?by_institute%5B%5D=6284&page=3",
+          "files": [
+            {"kind":"prova","filename":"2020-eear-eags-administracao-prova.pdf","url":"https://arquivos.qconcursos.com/prova/arquivo_prova/78154/aeronautica-2020-eear-sargento-da-aeronautica-administracao-prova.pdf"},
+            {"kind":"gabarito","filename":"2020-eear-eags-administracao-gabarito.pdf","url":"https://arquivos.qconcursos.com/prova/arquivo_gabarito/78154/aeronautica-2020-eear-sargento-da-aeronautica-administracao-gabarito.pdf"}
+          ]
+        },
+        {
+          "year": 2020,
+          "label": "EEAR EAGS 2021 - Eletricidade",
+          "source_page": "https://www.qconcursos.com/questoes-militares/provas?by_institute%5B%5D=6284&page=3",
+          "files": [
+            {"kind":"prova","filename":"2020-eear-eags-eletricidade-prova.pdf","url":"https://arquivos.qconcursos.com/prova/arquivo_prova/78155/aeronautica-2020-eear-sargento-da-aeronautica-eletricidade-prova.pdf"},
+            {"kind":"gabarito","filename":"2020-eear-eags-eletricidade-gabarito.pdf","url":"https://arquivos.qconcursos.com/prova/arquivo_gabarito/78155/aeronautica-2020-eear-sargento-da-aeronautica-eletricidade-gabarito.pdf"}
+          ]
+        },
+        {
+          "year": 2020,
+          "label": "EEAR EAGS 2021 - Eletrônica",
+          "source_page": "https://www.qconcursos.com/questoes-militares/provas?by_institute%5B%5D=6284&page=3",
+          "files": [
+            {"kind":"prova","filename":"2020-eear-eags-eletronica-prova.pdf","url":"https://arquivos.qconcursos.com/prova/arquivo_prova/78156/aeronautica-2020-eear-sargento-da-aeronautica-eletronica-prova.pdf"},
+            {"kind":"gabarito","filename":"2020-eear-eags-eletronica-gabarito.pdf","url":"https://arquivos.qconcursos.com/prova/arquivo_gabarito/78156/aeronautica-2020-eear-sargento-da-aeronautica-eletronica-gabarito.pdf"}
+          ]
+        },
+        {
+          "year": 2020,
+          "label": "EEAR EAGS 2021 - Enfermagem",
+          "source_page": "https://www.qconcursos.com/questoes-militares/provas?by_institute%5B%5D=6284&page=3",
+          "files": [
+            {"kind":"prova","filename":"2020-eear-eags-enfermagem-prova.pdf","url":"https://arquivos.qconcursos.com/prova/arquivo_prova/78157/aeronautica-2020-eear-sargento-da-aeronautica-enfermagem-prova.pdf"},
+            {"kind":"gabarito","filename":"2020-eear-eags-enfermagem-gabarito.pdf","url":"https://arquivos.qconcursos.com/prova/arquivo_gabarito/78157/aeronautica-2020-eear-sargento-da-aeronautica-enfermagem-gabarito.pdf"}
+          ]
+        },
+        {
+          "year": 2020,
+          "label": "EEAR EAGS 2021 - Informática",
+          "source_page": "https://www.qconcursos.com/questoes-militares/provas?by_institute%5B%5D=6284&page=3",
+          "files": [
+            {"kind":"prova","filename":"2020-eear-eags-informatica-prova.pdf","url":"https://arquivos.qconcursos.com/prova/arquivo_prova/78158/aeronautica-2020-eear-sargento-da-aeronautica-informatica-prova.pdf"},
+            {"kind":"gabarito","filename":"2020-eear-eags-informatica-gabarito.pdf","url":"https://arquivos.qconcursos.com/prova/arquivo_gabarito/78158/aeronautica-2020-eear-sargento-da-aeronautica-informatica-gabarito.pdf"}
+          ]
+        },
+        {
+          "year": 2020,
+          "label": "EEAR EAGS 2021 - Laboratório",
+          "source_page": "https://www.qconcursos.com/questoes-militares/provas?by_institute%5B%5D=6284&page=3",
+          "files": [
+            {"kind":"prova","filename":"2020-eear-eags-laboratorio-prova.pdf","url":"https://arquivos.qconcursos.com/prova/arquivo_prova/78159/aeronautica-2020-eear-sargento-da-aeronautica-laboratorio-prova.pdf"},
+            {"kind":"gabarito","filename":"2020-eear-eags-laboratorio-gabarito.pdf","url":"https://arquivos.qconcursos.com/prova/arquivo_gabarito/78159/aeronautica-2020-eear-sargento-da-aeronautica-laboratorio-gabarito.pdf"}
+          ]
+        },
+        {
+          "year": 2020,
+          "label": "EEAR EAGS 2021 - Obras",
+          "source_page": "https://www.qconcursos.com/questoes-militares/provas?by_institute%5B%5D=6284&page=3",
+          "files": [
+            {"kind":"prova","filename":"2020-eear-eags-obras-prova.pdf","url":"https://arquivos.qconcursos.com/prova/arquivo_prova/78160/aeronautica-2020-eear-sargento-da-aeronautica-obras-prova.pdf"},
+            {"kind":"gabarito","filename":"2020-eear-eags-obras-gabarito.pdf","url":"https://arquivos.qconcursos.com/prova/arquivo_gabarito/78160/aeronautica-2020-eear-sargento-da-aeronautica-obras-gabarito.pdf"}
+          ]
+        },
+        {
+          "year": 2020,
+          "label": "EEAR EAGS 2021 - Pavimentação",
+          "source_page": "https://www.qconcursos.com/questoes-militares/provas?by_institute%5B%5D=6284&page=3",
+          "files": [
+            {"kind":"prova","filename":"2020-eear-eags-pavimentacao-prova.pdf","url":"https://arquivos.qconcursos.com/prova/arquivo_prova/78161/aeronautica-2020-eear-sargento-da-aeronautica-pavimentacao-prova.pdf"},
+            {"kind":"gabarito","filename":"2020-eear-eags-pavimentacao-gabarito.pdf","url":"https://arquivos.qconcursos.com/prova/arquivo_gabarito/78161/aeronautica-2020-eear-sargento-da-aeronautica-pavimentacao-gabarito.pdf"}
+          ]
+        },
+        {
+          "year": 2020,
+          "label": "EEAR EAGS 2021 - Radiologia",
+          "source_page": "https://www.qconcursos.com/questoes-militares/provas?by_institute%5B%5D=6284&page=3",
+          "files": [
+            {"kind":"prova","filename":"2020-eear-eags-radiologia-prova.pdf","url":"https://arquivos.qconcursos.com/prova/arquivo_prova/78162/aeronautica-2020-eear-sargento-da-aeronautica-radiologia-prova.pdf"},
+            {"kind":"gabarito","filename":"2020-eear-eags-radiologia-gabarito.pdf","url":"https://arquivos.qconcursos.com/prova/arquivo_gabarito/78162/aeronautica-2020-eear-sargento-da-aeronautica-radiologia-gabarito.pdf"}
+          ]
+        },
+        {
+          "year": 2020,
+          "label": "EEAR CFS 2/2021 - análise de recursos/alterações",
+          "source_page": "https://www.qconcursos.com/questoes-militares/provas?by_institute%5B%5D=6284&page=3",
+          "files": [
+            {"kind":"alteracoes","filename":"2020-eear-cfs-turma-2-alteracoes-recursos.pdf","url":"https://arquivos.qconcursos.com/concurso/justificativa/34508/eear-2021-sargento-cfs-turma-2-justificativa.pdf"}
+          ]
+        },
+        {
+          "year": 2020,
+          "label": "EEAR EAGS 2021 - análise de recursos/alterações",
+          "source_page": "https://www.qconcursos.com/questoes-militares/provas?by_institute%5B%5D=6284&page=3",
+          "files": [
+            {"kind":"alteracoes","filename":"2020-eear-eags-alteracoes-recursos.pdf","url":"https://arquivos.qconcursos.com/concurso/justificativa/24417/eear-2021-sargento-eags-justificativa.pdf"}
+          ]
+        }
+      ]
+    }
+  ]
+}
