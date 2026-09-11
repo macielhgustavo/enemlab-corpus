@@ -26,10 +26,13 @@ jobs:
         run: |
           python - <<'PY'
           import hashlib
+          import html
           import json
           import os
+          import re
           import shutil
           import time
+          import urllib.parse
           import urllib.request
           from pathlib import Path
 
@@ -55,17 +58,99 @@ jobs:
           shutil.rmtree(work_root, ignore_errors=True)
           work_root.mkdir(parents=True, exist_ok=True)
 
-          opener = urllib.request.build_opener()
-          opener.addheaders = [
+          pdf_opener = urllib.request.build_opener()
+          pdf_opener.addheaders = [
               ("User-Agent", "Mozilla/5.0 (compatible; enemlab-corpus/1.0; +https://github.com/macielhgustavo/enemlab-corpus)"),
               ("Accept", "application/pdf,*/*;q=0.8"),
           ]
+
+          page_opener = urllib.request.build_opener()
+          page_opener.addheaders = [
+              ("User-Agent", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/152 Safari/537.36"),
+              ("Accept", "text/html,application/xhtml+xml,application/json;q=0.9,*/*;q=0.8"),
+              ("Accept-Language", "pt-BR,pt;q=0.9,en;q=0.7"),
+          ]
+
+          def fetch_html(url: str) -> str:
+              last_error = None
+              for attempt in range(4):
+                  try:
+                      with page_opener.open(url, timeout=60) as response:
+                          raw = response.read()
+                      text = raw.decode("utf-8", errors="replace")
+                      if len(text) < 500:
+                          raise RuntimeError(f"source page response too small: {url}")
+                      return text
+                  except Exception as exc:
+                      last_error = exc
+                      if attempt < 3:
+                          time.sleep(2 ** attempt)
+              raise RuntimeError(f"failed to fetch source page after retries: {url}: {last_error}")
+
+          def discover_files(exam: dict) -> list[dict]:
+              explicit = exam.get("files") or []
+              if explicit:
+                  return explicit
+
+              source_page = exam.get("source_page")
+              filename_prefix = exam.get("filename_prefix")
+              if not source_page or not filename_prefix:
+                  raise RuntimeError(
+                      f"exam without explicit files must define source_page and filename_prefix: {exam.get('label')}"
+                  )
+
+              source = html.unescape(fetch_html(source_page)).replace("\\/", "/")
+              candidates = []
+
+              patterns = [
+                  r'href=["\']([^"\']*(?:arquivo_prova|arquivo_gabarito)[^"\']*?\.pdf(?:\?[^"\']*)?)["\']',
+                  r'(https?://arquivos\.qconcursos\.com/prova/arquivo_(?:prova|gabarito)/[^"\'<>\s]+?\.pdf)',
+              ]
+              for pattern in patterns:
+                  for match in re.finditer(pattern, source, flags=re.IGNORECASE):
+                      raw_url = match.group(1)
+                      if raw_url.startswith("//"):
+                          url = "https:" + raw_url
+                      else:
+                          url = urllib.parse.urljoin(source_page, raw_url)
+                      if "arquivos.qconcursos.com/prova/arquivo_" not in url:
+                          continue
+                      candidates.append(url)
+
+              unique = []
+              for url in candidates:
+                  if url not in unique:
+                      unique.append(url)
+
+              prova = [url for url in unique if "/arquivo_prova/" in url]
+              gabarito = [url for url in unique if "/arquivo_gabarito/" in url]
+              if len(prova) != 1 or len(gabarito) != 1:
+                  raise RuntimeError(
+                      f"could not uniquely discover prova/gabarito for {source_page}: "
+                      f"prova={len(prova)} gabarito={len(gabarito)}"
+                  )
+
+              print(f"discovered {source_page}: prova={prova[0]} gabarito={gabarito[0]}")
+              return [
+                  {
+                      "kind": "prova",
+                      "filename": f"{filename_prefix}-prova.pdf",
+                      "url": prova[0],
+                      "discovered_from": source_page,
+                  },
+                  {
+                      "kind": "gabarito",
+                      "filename": f"{filename_prefix}-gabarito.pdf",
+                      "url": gabarito[0],
+                      "discovered_from": source_page,
+                  },
+              ]
 
           def download(url: str, dest: Path) -> tuple[str, int]:
               last_error = None
               for attempt in range(4):
                   try:
-                      with opener.open(url, timeout=60) as response, dest.open("wb") as out:
+                      with pdf_opener.open(url, timeout=60) as response, dest.open("wb") as out:
                           while True:
                               chunk = response.read(1024 * 1024)
                               if not chunk:
@@ -124,9 +209,9 @@ jobs:
               seen_filenames = set()
 
               for exam in sorted(package["exams"], key=lambda e: (int(e["year"]), e.get("label", ""))):
-                  resolved_exam = {k: v for k, v in exam.items() if k != "files"}
+                  resolved_exam = {k: v for k, v in exam.items() if k not in {"files", "filename_prefix"}}
                   resolved_files = []
-                  for item in exam["files"]:
+                  for item in discover_files(exam):
                       filename = item["filename"]
                       if filename in seen_filenames:
                           raise RuntimeError(f"duplicate filename in {package_id}: {filename}")
