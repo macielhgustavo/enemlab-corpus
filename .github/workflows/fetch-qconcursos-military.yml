@@ -184,4 +184,5 @@ jobs:
             exit 0
           fi
           git commit -m "corpus: split EEAR corpus and refresh military exams [skip ci]"
-          git push
+          git pull --rebase origin main
+          git push origin main
