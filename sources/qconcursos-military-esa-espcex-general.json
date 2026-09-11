@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "source": "QConcursos",
+  "verified_at": "2026-09-11",
+  "purpose": "Expand only ESA General and EsPCEx general-admission exams using source-page PDF discovery.",
+  "notes": [
+    "New ESA entries are limited to the general area; Saúde and Músico are not expanded here.",
+    "EsPCEx entries may include both exam days because both days compose the general Cadet admission exam.",
+    "No QConcursos arquivo IDs are guessed: the workflow must discover exactly one prova and one gabarito from each verified source page."
+  ],
+  "collections": [
+    {
+      "id": "esa",
+      "display_name": "EsSA / ESA",
+      "exams": [
+        {
+          "year": 2024,
+          "label": "EsSA - Sargento Geral",
+          "source_page": "https://www.qconcursos.com/questoes-militares/provas/exercito-2024-essa-sargento-geral",
+          "filename_prefix": "2024-essa-sargento-geral"
+        }
+      ]
+    }
+  ]
+}
