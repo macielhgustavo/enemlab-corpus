@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "source": "QConcursos",
+  "purpose": "Additional EEAR 2022 PDFs verified from the QConcursos military exam archive.",
+  "collections": [
+    {
+      "id": "eear",
+      "display_name": "EEAR",
+      "exams": [
+        {
+          "year": 2022,
+          "label": "EEAR CFS 2/2023 - Aeronavegantes e Não-Aeronavegantes - Turma 2",
+          "source_page": "https://www.qconcursos.com/questoes-militares/provas/aeronautica-2022-eear-sargento-da-aeronautica-aeronavegantes-e-nao-aeronavegantes-turma-2",
+          "files": [
+            {
+              "kind": "prova",
+              "filename": "2022-eear-cfs-turma-2-prova.pdf",
+              "url": "https://arquivos.qconcursos.com/prova/arquivo_prova/89503/aeronautica-2022-eear-sargento-da-aeronautica-aeronavegantes-e-nao-aeronavegantes-turma-2-prova.pdf"
+            },
+            {
+              "kind": "gabarito",
+              "filename": "2022-eear-cfs-turma-2-gabarito.pdf",
+              "url": "https://arquivos.qconcursos.com/prova/arquivo_gabarito/89503/aeronautica-2022-eear-sargento-da-aeronautica-aeronavegantes-e-nao-aeronavegantes-turma-2-gabarito.pdf"
+            }
+          ]
+        },
+        {
+          "year": 2022,
+          "label": "EEAR CFS 1/2023 - Aeronavegantes e Não-Aeronavegantes - Turma 1",
+          "source_page": "https://www.qconcursos.com/questoes-militares/provas/aeronautica-2022-eear-sargento-da-aeronautica-aeronavegantes-e-nao-aeronavegantes-turma-1",
+          "files": [
+            {
+              "kind": "prova",
+              "filename": "2022-eear-cfs-turma-1-prova.pdf",
+              "url": "https://arquivos.qconcursos.com/prova/arquivo_prova/88277/aeronautica-2022-eear-sargento-da-aeronautica-aeronavegantes-e-nao-aeronavegantes-turma-1-prova.pdf"
+            },
+            {
+              "kind": "gabarito",
+              "filename": "2022-eear-cfs-turma-1-gabarito.pdf",
+              "url": "https://arquivos.qconcursos.com/prova/arquivo_gabarito/88277/aeronautica-2022-eear-sargento-da-aeronautica-aeronavegantes-e-nao-aeronavegantes-turma-1-gabarito.pdf"
+            }
+          ]
+        },
+        {
+          "year": 2022,
+          "label": "EEAR EAGS 2023 - compilado de especialidades",
+          "source_page": "https://www.qconcursos.com/questoes-militares/provas/aeronautica-2022-eear-sargento-da-aeronautica",
+          "files": [
+            {
+              "kind": "prova",
+              "filename": "2022-eear-eags-compilado-prova.pdf",
+              "url": "https://arquivos.qconcursos.com/prova/arquivo_prova/132143/aeronautica-2022-eear-sargento-da-aeronautica-prova.pdf"
+            },
+            {
+              "kind": "gabarito",
+              "filename": "2022-eear-eags-compilado-gabarito.pdf",
+              "url": "https://arquivos.qconcursos.com/prova/arquivo_gabarito/132143/aeronautica-2022-eear-sargento-da-aeronautica-gabarito.pdf"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
