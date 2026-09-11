@@ -4,7 +4,7 @@ on:
   push:
     branches: [main]
     paths:
-      - sources/qconcursos-military.json
+      - 'sources/qconcursos-military*.json'
   workflow_dispatch:
 
 permissions:
@@ -32,8 +32,24 @@ jobs:
           import urllib.request
           from pathlib import Path
 
-          manifest_path = Path("sources/qconcursos-military.json")
-          manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+          manifest_paths = sorted(Path("sources").glob("qconcursos-military*.json"))
+          if not manifest_paths:
+              raise RuntimeError("no QConcursos military manifests found")
+
+          merged = {}
+          for manifest_path in manifest_paths:
+              manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+              for collection in manifest["collections"]:
+                  slug = collection["id"]
+                  current = merged.setdefault(slug, {
+                      "id": slug,
+                      "display_name": collection["display_name"],
+                      "exams": [],
+                      "source_manifests": [],
+                  })
+                  current["exams"].extend(collection["exams"])
+                  current["source_manifests"].append(str(manifest_path))
+
           work_root = Path(".cache/qconcursos-military")
           shutil.rmtree(work_root, ignore_errors=True)
           work_root.mkdir(parents=True, exist_ok=True)
@@ -67,17 +83,22 @@ jobs:
               raise RuntimeError(f"failed after retries: {url}: {last_error}")
 
           built = []
-          for collection in manifest["collections"]:
+          for collection in merged.values():
               slug = collection["id"]
               collection_dir = work_root / slug
               collection_dir.mkdir(parents=True, exist_ok=True)
               resolved = []
+              seen_filenames = set()
 
               for exam in collection["exams"]:
                   resolved_exam = {k: v for k, v in exam.items() if k != "files"}
                   resolved_files = []
                   for item in exam["files"]:
-                      dest = collection_dir / item["filename"]
+                      filename = item["filename"]
+                      if filename in seen_filenames:
+                          raise RuntimeError(f"duplicate filename in {slug}: {filename}")
+                      seen_filenames.add(filename)
+                      dest = collection_dir / filename
                       sha256, size = download(item["url"], dest)
                       resolved_files.append({
                           **item,
@@ -93,7 +114,7 @@ jobs:
                   "collection": slug,
                   "display_name": collection["display_name"],
                   "source": "QConcursos",
-                  "generated_from": "sources/qconcursos-military.json",
+                  "generated_from": collection["source_manifests"],
                   "exams": resolved,
               }
               (collection_dir / "manifest.json").write_text(
