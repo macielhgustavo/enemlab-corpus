@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "source": "QConcursos",
+  "verified_at": "2026-09-11",
+  "purpose": "Verified direct-download EEAR 2012 CFS PDFs exposed by QConcursos.",
+  "notes": [
+    "Only entries whose direct Prova and Gabarito links were exposed by the verified QConcursos page are included.",
+    "Other 2012 EEAR specialties are intentionally omitted until their current source pages expose independently verifiable downloadable files; no arquivo IDs are guessed."
+  ],
+  "collections": [
+    {
+      "id": "eear",
+      "display_name": "EEAR",
+      "exams": [
+        {
+          "year": 2012,
+          "label": "EEAR CFS - Aeronavegantes e Não-Aeronavegantes",
+          "source_page": "https://www.qconcursos.com/questoes-militares/provas/aeronautica-2012-eear-sargento-da-aeronautica-aeronavegantes-e-nao-aeronavegantes",
+          "files": [
+            {
+              "kind": "prova",
+              "filename": "2012-eear-cfs-aeronavegantes-nao-aeronavegantes-prova.pdf",
+              "url": "https://arquivos.qconcursos.com/prova/arquivo_prova/48651/aeronautica-2012-eear-sargento-da-aeronautica-aeronavegantes-e-nao-aeronavegantes-prova.pdf"
+            },
+            {
+              "kind": "gabarito",
+              "filename": "2012-eear-cfs-aeronavegantes-nao-aeronavegantes-gabarito.pdf",
+              "url": "https://arquivos.qconcursos.com/prova/arquivo_gabarito/48651/aeronautica-2012-eear-sargento-da-aeronautica-aeronavegantes-e-nao-aeronavegantes-gabarito.pdf"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
