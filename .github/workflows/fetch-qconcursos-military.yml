@@ -82,21 +82,53 @@ jobs:
                           time.sleep(2 ** attempt)
               raise RuntimeError(f"failed after retries: {url}: {last_error}")
 
-          built = []
+          def eear_bucket(year: int) -> str:
+              if year >= 2023:
+                  return "eear-2023-2025"
+              if year >= 2020:
+                  return "eear-2020-2022"
+              return "eear-pre2020"
+
+          packages = []
           for collection in merged.values():
               slug = collection["id"]
-              collection_dir = work_root / slug
+              if slug == "eear":
+                  groups = {}
+                  for exam in collection["exams"]:
+                      year = int(exam["year"])
+                      groups.setdefault(eear_bucket(year), []).append(exam)
+                  for package_id, exams in sorted(groups.items()):
+                      packages.append({
+                          "package_id": package_id,
+                          "collection_id": slug,
+                          "display_name": collection["display_name"],
+                          "exams": exams,
+                          "source_manifests": collection["source_manifests"],
+                      })
+              else:
+                  packages.append({
+                      "package_id": slug,
+                      "collection_id": slug,
+                      "display_name": collection["display_name"],
+                      "exams": collection["exams"],
+                      "source_manifests": collection["source_manifests"],
+                  })
+
+          built = []
+          for package in packages:
+              package_id = package["package_id"]
+              collection_dir = work_root / package_id
               collection_dir.mkdir(parents=True, exist_ok=True)
               resolved = []
               seen_filenames = set()
 
-              for exam in collection["exams"]:
+              for exam in sorted(package["exams"], key=lambda e: (int(e["year"]), e.get("label", ""))):
                   resolved_exam = {k: v for k, v in exam.items() if k != "files"}
                   resolved_files = []
                   for item in exam["files"]:
                       filename = item["filename"]
                       if filename in seen_filenames:
-                          raise RuntimeError(f"duplicate filename in {slug}: {filename}")
+                          raise RuntimeError(f"duplicate filename in {package_id}: {filename}")
                       seen_filenames.add(filename)
                       dest = collection_dir / filename
                       sha256, size = download(item["url"], dest)
@@ -105,16 +137,17 @@ jobs:
                           "sha256": sha256,
                           "size_bytes": size,
                       })
-                      print(f"{slug}: {dest.name} {size} bytes {sha256}")
+                      print(f"{package_id}: {dest.name} {size} bytes {sha256}")
                   resolved_exam["files"] = resolved_files
                   resolved.append(resolved_exam)
 
               packaged_manifest = {
                   "schema_version": 1,
-                  "collection": slug,
-                  "display_name": collection["display_name"],
+                  "package_id": package_id,
+                  "collection": package["collection_id"],
+                  "display_name": package["display_name"],
                   "source": "QConcursos",
-                  "generated_from": collection["source_manifests"],
+                  "generated_from": package["source_manifests"],
                   "exams": resolved,
               }
               (collection_dir / "manifest.json").write_text(
@@ -127,10 +160,10 @@ jobs:
                   hashes.append(f"{hashlib.sha256(path.read_bytes()).hexdigest()}  {path.name}")
               (collection_dir / "SHA256SUMS.txt").write_text("\n".join(hashes) + "\n", encoding="utf-8")
 
-              zip_path = Path(f"{slug}.zip")
+              zip_path = Path(f"{package_id}.zip")
               if zip_path.exists():
                   zip_path.unlink()
-              shutil.make_archive(slug, "zip", root_dir=collection_dir)
+              shutil.make_archive(package_id, "zip", root_dir=collection_dir)
               size = zip_path.stat().st_size
               if size >= 95 * 1024 * 1024:
                   raise RuntimeError(f"{zip_path} is too large for a normal GitHub blob: {size} bytes")
@@ -144,10 +177,11 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add eear.zip esa.zip espcex.zip
+          git rm -f --ignore-unmatch eear.zip
+          git add eear-*.zip esa.zip espcex.zip
           if git diff --cached --quiet; then
             echo "Corpus ZIPs are already up to date."
             exit 0
           fi
-          git commit -m "corpus: add QConcursos military exams [skip ci]"
+          git commit -m "corpus: split EEAR corpus and refresh military exams [skip ci]"
           git push
