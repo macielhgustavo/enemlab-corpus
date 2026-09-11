@@ -4,8 +4,8 @@
   "purpose": "Raw military-exam corpus for exams not yet implemented in ENEMLab.",
   "notes": [
     "AFA and EPCAR are intentionally excluded because ENEMLab already has those providers.",
-    "Only direct PDF links exposed by QConcursos and verified during this collection pass are included.",
-    "EsPCEx 2025 2nd day is not included because a direct PDF download link was not exposed in the verified page during this pass."
+    "Only direct PDF links exposed by QConcursos and verified during collection passes are included.",
+    "EsPCEx editions without a verified direct PDF download link are intentionally not added."
   ],
   "collections": [
     {
@@ -17,16 +17,8 @@
           "label": "EEAR CFS - código 81",
           "source_page": "https://www.qconcursos.com/questoes-militares/provas/aeronautica-2025-eear-sargento-cfs-codigo-81",
           "files": [
-            {
-              "kind": "prova",
-              "filename": "2025-eear-cfs-codigo-81-prova.pdf",
-              "url": "https://arquivos.qconcursos.com/prova/arquivo_prova/134635/aeronautica-2025-eear-sargento-cfs-codigo-81-prova.pdf"
-            },
-            {
-              "kind": "gabarito",
-              "filename": "2025-eear-cfs-codigo-81-gabarito.pdf",
-              "url": "https://arquivos.qconcursos.com/prova/arquivo_gabarito/134635/aeronautica-2025-eear-sargento-cfs-codigo-81-gabarito.pdf"
-            }
+            {"kind":"prova","filename":"2025-eear-cfs-codigo-81-prova.pdf","url":"https://arquivos.qconcursos.com/prova/arquivo_prova/134635/aeronautica-2025-eear-sargento-cfs-codigo-81-prova.pdf"},
+            {"kind":"gabarito","filename":"2025-eear-cfs-codigo-81-gabarito.pdf","url":"https://arquivos.qconcursos.com/prova/arquivo_gabarito/134635/aeronautica-2025-eear-sargento-cfs-codigo-81-gabarito.pdf"}
           ]
         },
         {
@@ -34,16 +26,8 @@
           "label": "EEAR CFS - código 83",
           "source_page": "https://www.qconcursos.com/questoes-militares/provas/aeronautica-2025-eear-sargento-cfs-codigo-83",
           "files": [
-            {
-              "kind": "prova",
-              "filename": "2025-eear-cfs-codigo-83-prova.pdf",
-              "url": "https://arquivos.qconcursos.com/prova/arquivo_prova/134636/aeronautica-2025-eear-sargento-cfs-codigo-83-prova.pdf"
-            },
-            {
-              "kind": "gabarito",
-              "filename": "2025-eear-cfs-codigo-83-gabarito.pdf",
-              "url": "https://arquivos.qconcursos.com/prova/arquivo_gabarito/134636/aeronautica-2025-eear-sargento-cfs-codigo-83-gabarito.pdf"
-            }
+            {"kind":"prova","filename":"2025-eear-cfs-codigo-83-prova.pdf","url":"https://arquivos.qconcursos.com/prova/arquivo_prova/134636/aeronautica-2025-eear-sargento-cfs-codigo-83-prova.pdf"},
+            {"kind":"gabarito","filename":"2025-eear-cfs-codigo-83-gabarito.pdf","url":"https://arquivos.qconcursos.com/prova/arquivo_gabarito/134636/aeronautica-2025-eear-sargento-cfs-codigo-83-gabarito.pdf"}
           ]
         },
         {
@@ -51,16 +35,8 @@
           "label": "EEAR CFS - código 85",
           "source_page": "https://www.qconcursos.com/questoes-militares/provas/aeronautica-2025-eear-sargento-cfs-codigo-85",
           "files": [
-            {
-              "kind": "prova",
-              "filename": "2025-eear-cfs-codigo-85-prova.pdf",
-              "url": "https://arquivos.qconcursos.com/prova/arquivo_prova/134637/aeronautica-2025-eear-sargento-cfs-codigo-85-prova.pdf"
-            },
-            {
-              "kind": "gabarito",
-              "filename": "2025-eear-cfs-codigo-85-gabarito.pdf",
-              "url": "https://arquivos.qconcursos.com/prova/arquivo_gabarito/134637/aeronautica-2025-eear-sargento-cfs-codigo-85-gabarito.pdf"
-            }
+            {"kind":"prova","filename":"2025-eear-cfs-codigo-85-prova.pdf","url":"https://arquivos.qconcursos.com/prova/arquivo_prova/134637/aeronautica-2025-eear-sargento-cfs-codigo-85-prova.pdf"},
+            {"kind":"gabarito","filename":"2025-eear-cfs-codigo-85-gabarito.pdf","url":"https://arquivos.qconcursos.com/prova/arquivo_gabarito/134637/aeronautica-2025-eear-sargento-cfs-codigo-85-gabarito.pdf"}
           ]
         },
         {
@@ -68,16 +44,8 @@
           "label": "EEAR CFS - código 40",
           "source_page": "https://www.qconcursos.com/questoes-militares/provas/aeronautica-2025-eear-sargento-cfs-codigo-40",
           "files": [
-            {
-              "kind": "prova",
-              "filename": "2025-eear-cfs-codigo-40-prova.pdf",
-              "url": "https://arquivos.qconcursos.com/prova/arquivo_prova/134638/aeronautica-2025-eear-sargento-cfs-codigo-40-prova.pdf"
-            },
-            {
-              "kind": "gabarito",
-              "filename": "2025-eear-cfs-codigo-40-gabarito.pdf",
-              "url": "https://arquivos.qconcursos.com/prova/arquivo_gabarito/134638/aeronautica-2025-eear-sargento-cfs-codigo-40-gabarito.pdf"
-            }
+            {"kind":"prova","filename":"2025-eear-cfs-codigo-40-prova.pdf","url":"https://arquivos.qconcursos.com/prova/arquivo_prova/134638/aeronautica-2025-eear-sargento-cfs-codigo-40-prova.pdf"},
+            {"kind":"gabarito","filename":"2025-eear-cfs-codigo-40-gabarito.pdf","url":"https://arquivos.qconcursos.com/prova/arquivo_gabarito/134638/aeronautica-2025-eear-sargento-cfs-codigo-40-gabarito.pdf"}
           ]
         },
         {
@@ -85,16 +53,8 @@
           "label": "EEAR CFS - código 42",
           "source_page": "https://www.qconcursos.com/questoes-militares/provas/aeronautica-2025-eear-sargento-cfs-codigo-42",
           "files": [
-            {
-              "kind": "prova",
-              "filename": "2025-eear-cfs-codigo-42-prova.pdf",
-              "url": "https://arquivos.qconcursos.com/prova/arquivo_prova/134639/aeronautica-2025-eear-sargento-cfs-codigo-42-prova.pdf"
-            },
-            {
-              "kind": "gabarito",
-              "filename": "2025-eear-cfs-codigo-42-gabarito.pdf",
-              "url": "https://arquivos.qconcursos.com/prova/arquivo_gabarito/134639/aeronautica-2025-eear-sargento-cfs-codigo-42-gabarito.pdf"
-            }
+            {"kind":"prova","filename":"2025-eear-cfs-codigo-42-prova.pdf","url":"https://arquivos.qconcursos.com/prova/arquivo_prova/134639/aeronautica-2025-eear-sargento-cfs-codigo-42-prova.pdf"},
+            {"kind":"gabarito","filename":"2025-eear-cfs-codigo-42-gabarito.pdf","url":"https://arquivos.qconcursos.com/prova/arquivo_gabarito/134639/aeronautica-2025-eear-sargento-cfs-codigo-42-gabarito.pdf"}
           ]
         },
         {
@@ -102,16 +62,8 @@
           "label": "EEAR CFS - código 44",
           "source_page": "https://www.qconcursos.com/questoes-militares/provas/aeronautica-2025-eear-sargento-cfs-codigo-44",
           "files": [
-            {
-              "kind": "prova",
-              "filename": "2025-eear-cfs-codigo-44-prova.pdf",
-              "url": "https://arquivos.qconcursos.com/prova/arquivo_prova/134640/aeronautica-2025-eear-sargento-cfs-codigo-44-prova.pdf"
-            },
-            {
-              "kind": "gabarito",
-              "filename": "2025-eear-cfs-codigo-44-gabarito.pdf",
-              "url": "https://arquivos.qconcursos.com/prova/arquivo_gabarito/134640/aeronautica-2025-eear-sargento-cfs-codigo-44-gabarito.pdf"
-            }
+            {"kind":"prova","filename":"2025-eear-cfs-codigo-44-prova.pdf","url":"https://arquivos.qconcursos.com/prova/arquivo_prova/134640/aeronautica-2025-eear-sargento-cfs-codigo-44-prova.pdf"},
+            {"kind":"gabarito","filename":"2025-eear-cfs-codigo-44-gabarito.pdf","url":"https://arquivos.qconcursos.com/prova/arquivo_gabarito/134640/aeronautica-2025-eear-sargento-cfs-codigo-44-gabarito.pdf"}
           ]
         },
         {
@@ -119,16 +71,116 @@
           "label": "EEAR CFS",
           "source_page": "https://www.qconcursos.com/questoes-militares/provas/aeronautica-2024-eear-sargento-cfs",
           "files": [
-            {
-              "kind": "prova",
-              "filename": "2024-eear-cfs-prova.pdf",
-              "url": "https://arquivos.qconcursos.com/prova/arquivo_prova/127703/aeronautica-2024-eear-sargento-cfs-prova.pdf"
-            },
-            {
-              "kind": "gabarito",
-              "filename": "2024-eear-cfs-gabarito.pdf",
-              "url": "https://arquivos.qconcursos.com/prova/arquivo_gabarito/127703/aeronautica-2024-eear-sargento-cfs-gabarito.pdf"
-            }
+            {"kind":"prova","filename":"2024-eear-cfs-prova.pdf","url":"https://arquivos.qconcursos.com/prova/arquivo_prova/127703/aeronautica-2024-eear-sargento-cfs-prova.pdf"},
+            {"kind":"gabarito","filename":"2024-eear-cfs-gabarito.pdf","url":"https://arquivos.qconcursos.com/prova/arquivo_gabarito/127703/aeronautica-2024-eear-sargento-cfs-gabarito.pdf"}
+          ]
+        },
+        {
+          "year": 2023,
+          "label": "EEAR CFS - BMA Mecânico de Aeronaves",
+          "source_page": "https://www.qconcursos.com/questoes-militares/provas/aeronautica-2023-eear-sargento-da-aeronautica-bma-mecanico-de-aeronaves",
+          "files": [
+            {"kind":"prova","filename":"2023-eear-cfs-bma-prova.pdf","url":"https://arquivos.qconcursos.com/prova/arquivo_prova/94815/aeronautica-2023-eear-sargento-da-aeronautica-bma-mecanico-de-aeronaves-prova.pdf"},
+            {"kind":"gabarito","filename":"2023-eear-cfs-bma-gabarito.pdf","url":"https://arquivos.qconcursos.com/prova/arquivo_gabarito/94815/aeronautica-2023-eear-sargento-da-aeronautica-bma-mecanico-de-aeronaves-gabarito.pdf"}
+          ]
+        },
+        {
+          "year": 2023,
+          "label": "EEAR CFS - BCT Controle de Tráfego Aéreo",
+          "source_page": "https://www.qconcursos.com/questoes-militares/provas/aeronautica-2023-eear-sargento-da-aeronautica-bct-controle-de-trafego-aereo",
+          "files": [
+            {"kind":"prova","filename":"2023-eear-cfs-bct-prova.pdf","url":"https://arquivos.qconcursos.com/prova/arquivo_prova/94816/aeronautica-2023-eear-sargento-da-aeronautica-bct-controle-de-trafego-aereo-prova.pdf"},
+            {"kind":"gabarito","filename":"2023-eear-cfs-bct-gabarito.pdf","url":"https://arquivos.qconcursos.com/prova/arquivo_gabarito/94816/aeronautica-2023-eear-sargento-da-aeronautica-bct-controle-de-trafego-aereo-gabarito.pdf"}
+          ]
+        },
+        {
+          "year": 2023,
+          "label": "EEAR CFS - BMB Material Bélico",
+          "source_page": "https://www.qconcursos.com/questoes-militares/provas/aeronautica-2023-eear-sargento-da-aeronautica-bmb-material-belico",
+          "files": [
+            {"kind":"prova","filename":"2023-eear-cfs-bmb-prova.pdf","url":"https://arquivos.qconcursos.com/prova/arquivo_prova/94820/aeronautica-2023-eear-sargento-da-aeronautica-bmb-material-belico-prova.pdf"},
+            {"kind":"gabarito","filename":"2023-eear-cfs-bmb-gabarito.pdf","url":"https://arquivos.qconcursos.com/prova/arquivo_gabarito/94820/aeronautica-2023-eear-sargento-da-aeronautica-bmb-material-belico-gabarito.pdf"}
+          ]
+        },
+        {
+          "year": 2023,
+          "label": "EEAR CFS - BEP Estrutura e Pintura",
+          "source_page": "https://www.qconcursos.com/questoes-militares/provas/aeronautica-2023-eear-sargento-da-aeronautica-bep-estrutura-e-pintura",
+          "files": [
+            {"kind":"prova","filename":"2023-eear-cfs-bep-prova.pdf","url":"https://arquivos.qconcursos.com/prova/arquivo_prova/94821/aeronautica-2023-eear-sargento-da-aeronautica-bep-estrutura-e-pintura-prova.pdf"},
+            {"kind":"gabarito","filename":"2023-eear-cfs-bep-gabarito.pdf","url":"https://arquivos.qconcursos.com/prova/arquivo_gabarito/94821/aeronautica-2023-eear-sargento-da-aeronautica-bep-estrutura-e-pintura-gabarito.pdf"}
+          ]
+        },
+        {
+          "year": 2023,
+          "label": "EEAR CFS - BEV Equipamento de Voo",
+          "source_page": "https://www.qconcursos.com/questoes-militares/provas/aeronautica-2023-eear-sargento-da-aeronautica-bev-equipamento-de-voo",
+          "files": [
+            {"kind":"prova","filename":"2023-eear-cfs-bev-prova.pdf","url":"https://arquivos.qconcursos.com/prova/arquivo_prova/94822/aeronautica-2023-eear-sargento-da-aeronautica-bev-equipamento-de-voo-prova.pdf"},
+            {"kind":"gabarito","filename":"2023-eear-cfs-bev-gabarito.pdf","url":"https://arquivos.qconcursos.com/prova/arquivo_gabarito/94822/aeronautica-2023-eear-sargento-da-aeronautica-bev-equipamento-de-voo-gabarito.pdf"}
+          ]
+        },
+        {
+          "year": 2023,
+          "label": "EEAR CFS - BSP Suprimento",
+          "source_page": "https://www.qconcursos.com/questoes-militares/provas/aeronautica-2023-eear-sargento-da-aeronautica-bsp-suprimento",
+          "files": [
+            {"kind":"prova","filename":"2023-eear-cfs-bsp-prova.pdf","url":"https://arquivos.qconcursos.com/prova/arquivo_prova/94823/aeronautica-2023-eear-sargento-da-aeronautica-bsp-suprimento-prova.pdf"},
+            {"kind":"gabarito","filename":"2023-eear-cfs-bsp-gabarito.pdf","url":"https://arquivos.qconcursos.com/prova/arquivo_gabarito/94823/aeronautica-2023-eear-sargento-da-aeronautica-bsp-suprimento-gabarito.pdf"}
+          ]
+        },
+        {
+          "year": 2023,
+          "label": "EEAR CFS - SGS Guarda e Segurança",
+          "source_page": "https://www.qconcursos.com/questoes-militares/provas/aeronautica-2023-eear-sargento-da-aeronautica-sgs-guarda-e-seguranca",
+          "files": [
+            {"kind":"prova","filename":"2023-eear-cfs-sgs-prova.pdf","url":"https://arquivos.qconcursos.com/prova/arquivo_prova/94824/aeronautica-2023-eear-sargento-da-aeronautica-sgs-guarda-e-seguranca-prova.pdf"},
+            {"kind":"gabarito","filename":"2023-eear-cfs-sgs-gabarito.pdf","url":"https://arquivos.qconcursos.com/prova/arquivo_gabarito/94824/aeronautica-2023-eear-sargento-da-aeronautica-sgs-guarda-e-seguranca-gabarito.pdf"}
+          ]
+        },
+        {
+          "year": 2023,
+          "label": "EEAR EAGS - Administração",
+          "source_page": "https://www.qconcursos.com/questoes-militares/provas/aeronautica-2023-eear-sargento-da-aeronautica-administracao",
+          "files": [
+            {"kind":"prova","filename":"2023-eear-eags-administracao-prova.pdf","url":"https://arquivos.qconcursos.com/prova/arquivo_prova/93369/aeronautica-2023-eear-sargento-da-aeronautica-administracao-prova.pdf"},
+            {"kind":"gabarito","filename":"2023-eear-eags-administracao-gabarito.pdf","url":"https://arquivos.qconcursos.com/prova/arquivo_gabarito/93369/aeronautica-2023-eear-sargento-da-aeronautica-administracao-gabarito.pdf"}
+          ]
+        },
+        {
+          "year": 2023,
+          "label": "EEAR EAGS - Topografia",
+          "source_page": "https://www.qconcursos.com/questoes-militares/provas/aeronautica-2023-eear-sargento-da-aeronautica-topografia",
+          "files": [
+            {"kind":"prova","filename":"2023-eear-eags-topografia-prova.pdf","url":"https://arquivos.qconcursos.com/prova/arquivo_prova/93370/aeronautica-2023-eear-sargento-da-aeronautica-topografia-prova.pdf"},
+            {"kind":"gabarito","filename":"2023-eear-eags-topografia-gabarito.pdf","url":"https://arquivos.qconcursos.com/prova/arquivo_gabarito/93370/aeronautica-2023-eear-sargento-da-aeronautica-topografia-gabarito.pdf"}
+          ]
+        },
+        {
+          "year": 2023,
+          "label": "EEAR EAGS - Enfermagem",
+          "source_page": "https://www.qconcursos.com/questoes-militares/provas/aeronautica-2023-eear-sargento-da-aeronautica-enfermagem",
+          "files": [
+            {"kind":"prova","filename":"2023-eear-eags-enfermagem-prova.pdf","url":"https://arquivos.qconcursos.com/prova/arquivo_prova/93371/aeronautica-2023-eear-sargento-da-aeronautica-enfermagem-prova.pdf"},
+            {"kind":"gabarito","filename":"2023-eear-eags-enfermagem-gabarito.pdf","url":"https://arquivos.qconcursos.com/prova/arquivo_gabarito/93371/aeronautica-2023-eear-sargento-da-aeronautica-enfermagem-gabarito.pdf"}
+          ]
+        },
+        {
+          "year": 2023,
+          "label": "EEAR EAGS - Eletricidade",
+          "source_page": "https://www.qconcursos.com/questoes-militares/provas/aeronautica-2023-eear-sargento-da-aeronautica-eletricidade",
+          "files": [
+            {"kind":"prova","filename":"2023-eear-eags-eletricidade-prova.pdf","url":"https://arquivos.qconcursos.com/prova/arquivo_prova/93372/aeronautica-2023-eear-sargento-da-aeronautica-eletricidade-prova.pdf"},
+            {"kind":"gabarito","filename":"2023-eear-eags-eletricidade-gabarito.pdf","url":"https://arquivos.qconcursos.com/prova/arquivo_gabarito/93372/aeronautica-2023-eear-sargento-da-aeronautica-eletricidade-gabarito.pdf"}
+          ]
+        },
+        {
+          "year": 2023,
+          "label": "EEAR EAGS - Informática",
+          "source_page": "https://www.qconcursos.com/questoes-militares/provas/aeronautica-2023-eear-sargento-da-aeronautica-informatica",
+          "files": [
+            {"kind":"prova","filename":"2023-eear-eags-informatica-prova.pdf","url":"https://arquivos.qconcursos.com/prova/arquivo_prova/93373/aeronautica-2023-eear-sargento-da-aeronautica-informatica-prova.pdf"},
+            {"kind":"gabarito","filename":"2023-eear-eags-informatica-gabarito.pdf","url":"https://arquivos.qconcursos.com/prova/arquivo_gabarito/93373/aeronautica-2023-eear-sargento-da-aeronautica-informatica-gabarito.pdf"}
           ]
         }
       ]
@@ -142,16 +194,8 @@
           "label": "EsSA - Sargento Geral",
           "source_page": "https://www.qconcursos.com/questoes-militares/provas/exercito-2025-essa-sargento-geral",
           "files": [
-            {
-              "kind": "prova",
-              "filename": "2025-essa-sargento-geral-prova.pdf",
-              "url": "https://arquivos.qconcursos.com/prova/arquivo_prova/139039/exercito-2025-essa-sargento-geral-prova.pdf"
-            },
-            {
-              "kind": "gabarito",
-              "filename": "2025-essa-sargento-geral-gabarito.pdf",
-              "url": "https://arquivos.qconcursos.com/prova/arquivo_gabarito/139039/exercito-2025-essa-sargento-geral-gabarito.pdf"
-            }
+            {"kind":"prova","filename":"2025-essa-sargento-geral-prova.pdf","url":"https://arquivos.qconcursos.com/prova/arquivo_prova/139039/exercito-2025-essa-sargento-geral-prova.pdf"},
+            {"kind":"gabarito","filename":"2025-essa-sargento-geral-gabarito.pdf","url":"https://arquivos.qconcursos.com/prova/arquivo_gabarito/139039/exercito-2025-essa-sargento-geral-gabarito.pdf"}
           ]
         },
         {
@@ -159,16 +203,8 @@
           "label": "EsSA - Sargento Saúde",
           "source_page": "https://www.qconcursos.com/questoes-militares/provas/exercito-2025-essa-sargento-saude",
           "files": [
-            {
-              "kind": "prova",
-              "filename": "2025-essa-sargento-saude-prova.pdf",
-              "url": "https://arquivos.qconcursos.com/prova/arquivo_prova/139040/exercito-2025-essa-sargento-saude-prova.pdf"
-            },
-            {
-              "kind": "gabarito",
-              "filename": "2025-essa-sargento-saude-gabarito.pdf",
-              "url": "https://arquivos.qconcursos.com/prova/arquivo_gabarito/139040/exercito-2025-essa-sargento-saude-gabarito.pdf"
-            }
+            {"kind":"prova","filename":"2025-essa-sargento-saude-prova.pdf","url":"https://arquivos.qconcursos.com/prova/arquivo_prova/139040/exercito-2025-essa-sargento-saude-prova.pdf"},
+            {"kind":"gabarito","filename":"2025-essa-sargento-saude-gabarito.pdf","url":"https://arquivos.qconcursos.com/prova/arquivo_gabarito/139040/exercito-2025-essa-sargento-saude-gabarito.pdf"}
           ]
         },
         {
@@ -176,16 +212,17 @@
           "label": "EsSA - Sargento Músico",
           "source_page": "https://www.qconcursos.com/questoes-militares/provas/exercito-2025-essa-sargento-musico",
           "files": [
-            {
-              "kind": "prova",
-              "filename": "2025-essa-sargento-musico-prova.pdf",
-              "url": "https://arquivos.qconcursos.com/prova/arquivo_prova/139041/exercito-2025-essa-sargento-musico-prova.pdf"
-            },
-            {
-              "kind": "gabarito",
-              "filename": "2025-essa-sargento-musico-gabarito.pdf",
-              "url": "https://arquivos.qconcursos.com/prova/arquivo_gabarito/139041/exercito-2025-essa-sargento-musico-gabarito.pdf"
-            }
+            {"kind":"prova","filename":"2025-essa-sargento-musico-prova.pdf","url":"https://arquivos.qconcursos.com/prova/arquivo_prova/139041/exercito-2025-essa-sargento-musico-prova.pdf"},
+            {"kind":"gabarito","filename":"2025-essa-sargento-musico-gabarito.pdf","url":"https://arquivos.qconcursos.com/prova/arquivo_gabarito/139041/exercito-2025-essa-sargento-musico-gabarito.pdf"}
+          ]
+        },
+        {
+          "year": 2023,
+          "label": "EsSA - Sargento Geral",
+          "source_page": "https://www.qconcursos.com/questoes-militares/provas/exercito-2023-essa-sargento-geral",
+          "files": [
+            {"kind":"prova","filename":"2023-essa-sargento-geral-prova.pdf","url":"https://arquivos.qconcursos.com/prova/arquivo_prova/110919/exercito-2023-essa-sargento-geral-prova.pdf"},
+            {"kind":"gabarito","filename":"2023-essa-sargento-geral-gabarito.pdf","url":"https://arquivos.qconcursos.com/prova/arquivo_gabarito/110919/exercito-2023-essa-sargento-geral-gabarito.pdf"}
           ]
         }
       ]
@@ -199,16 +236,8 @@
           "label": "EsPCEx - Cadete do Exército - 1º Dia",
           "source_page": "https://www.qconcursos.com/questoes-militares/provas/exercito-2025-espcex-cadete-do-exercito-1-dia",
           "files": [
-            {
-              "kind": "prova",
-              "filename": "2025-espcex-cadete-1-dia-prova.pdf",
-              "url": "https://arquivos.qconcursos.com/prova/arquivo_prova/137305/exercito-2025-espcex-cadete-do-exercito-1-dia-prova.pdf"
-            },
-            {
-              "kind": "gabarito",
-              "filename": "2025-espcex-cadete-1-dia-gabarito.pdf",
-              "url": "https://arquivos.qconcursos.com/prova/arquivo_gabarito/137305/exercito-2025-espcex-cadete-do-exercito-1-dia-gabarito.pdf"
-            }
+            {"kind":"prova","filename":"2025-espcex-cadete-1-dia-prova.pdf","url":"https://arquivos.qconcursos.com/prova/arquivo_prova/137305/exercito-2025-espcex-cadete-do-exercito-1-dia-prova.pdf"},
+            {"kind":"gabarito","filename":"2025-espcex-cadete-1-dia-gabarito.pdf","url":"https://arquivos.qconcursos.com/prova/arquivo_gabarito/137305/exercito-2025-espcex-cadete-do-exercito-1-dia-gabarito.pdf"}
           ]
         }
       ]
