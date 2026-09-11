@@ -1,0 +1,6 @@
+# Generated corpus artifacts are published in the corpus-latest GitHub Release.
+eear-*.zip
+esa.zip
+espcex.zip
+corpus-release.json
+.cache/
