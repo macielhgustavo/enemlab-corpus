@@ -27,6 +27,7 @@ jobs:
           python - <<'PY'
           import hashlib
           import json
+          import os
           import shutil
           import time
           import urllib.request
@@ -166,23 +167,41 @@ jobs:
               shutil.make_archive(package_id, "zip", root_dir=collection_dir)
               size = zip_path.stat().st_size
               if size >= 95 * 1024 * 1024:
-                  raise RuntimeError(f"{zip_path} is too large for a normal GitHub blob: {size} bytes")
-              built.append({"zip": zip_path.name, "size_bytes": size})
+                  raise RuntimeError(f"{zip_path} reached 95 MiB; split this package into a smaller year range")
+              zip_sha256 = hashlib.sha256(zip_path.read_bytes()).hexdigest()
+              built.append({
+                  "asset": zip_path.name,
+                  "size_bytes": size,
+                  "sha256": zip_sha256,
+              })
 
-          print(json.dumps({"built": built}, indent=2))
+          release_index = {
+              "schema_version": 1,
+              "release_tag": "corpus-latest",
+              "source_commit": os.environ.get("GITHUB_SHA"),
+              "source_manifests": [str(path) for path in manifest_paths],
+              "assets": built,
+          }
+          Path("corpus-release.json").write_text(
+              json.dumps(release_index, ensure_ascii=False, indent=2) + "\n",
+              encoding="utf-8",
+          )
+          print(json.dumps(release_index, indent=2))
           PY
 
-      - name: Commit generated corpus ZIPs
+      - name: Publish corpus release assets
         shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git rm -f --ignore-unmatch eear.zip
-          git add eear-*.zip esa.zip espcex.zip
-          if git diff --cached --quiet; then
-            echo "Corpus ZIPs are already up to date."
-            exit 0
+          TAG="corpus-latest"
+          TITLE="ENEMLab corpus (latest)"
+          NOTES="Generated corpus packages. Source of truth: versioned manifests under sources/. Assets are rebuilt and replaced on manifest changes."
+
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            gh release edit "$TAG" --title "$TITLE" --notes "$NOTES"
+          else
+            gh release create "$TAG" --target "$GITHUB_SHA" --title "$TITLE" --notes "$NOTES"
           fi
-          git commit -m "corpus: split EEAR corpus and refresh military exams [skip ci]"
-          git pull --rebase origin main
-          git push origin main
+
+          gh release upload "$TAG" eear-*.zip esa.zip espcex.zip corpus-release.json --clobber
