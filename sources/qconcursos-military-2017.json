@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "source": "QConcursos",
+  "purpose": "Verified direct-download EEAR 2017 PDFs exposed by QConcursos.",
+  "notes": [
+    "Only entries whose direct Prova and Gabarito links were exposed by the verified QConcursos page are included.",
+    "Other 2017 EEAR exams are intentionally omitted when their current source page does not expose downloadable files; no arquivo IDs are guessed.",
+    "QConcursos labels these as 2017 based on application date while the linked FAB material belongs to the EAGS 2018 admission cycle; provenance preserves both contexts."
+  ],
+  "collections": [
+    {
+      "id": "eear",
+      "display_name": "EEAR",
+      "exams": [
+        {
+          "year": 2017,
+          "label": "EEAR EAGS - Administração",
+          "source_page": "https://www.qconcursos.com/questoes-militares/provas/aeronautica-2017-eear-sargento-da-aeronautica-administracao",
+          "files": [
+            {
+              "kind": "prova",
+              "filename": "2017-eear-eags-administracao-prova.pdf",
+              "url": "https://arquivos.qconcursos.com/prova/arquivo_prova/54563/aeronautica-2017-eear-sargento-da-aeronautica-administracao-prova.pdf"
+            },
+            {
+              "kind": "gabarito",
+              "filename": "2017-eear-eags-administracao-gabarito.pdf",
+              "url": "https://arquivos.qconcursos.com/prova/arquivo_gabarito/54563/aeronautica-2017-eear-sargento-da-aeronautica-administracao-gabarito.pdf"
+            }
+          ]
+        },
+        {
+          "year": 2017,
+          "label": "EEAR EAGS - Enfermagem",
+          "source_page": "https://www.qconcursos.com/questoes-militares/provas/aeronautica-2017-eear-sargento-da-aeronautica-enfermagem",
+          "files": [
+            {
+              "kind": "prova",
+              "filename": "2017-eear-eags-enfermagem-prova.pdf",
+              "url": "https://arquivos.qconcursos.com/prova/arquivo_prova/54564/aeronautica-2017-eear-sargento-da-aeronautica-enfermagem-prova.pdf"
+            },
+            {
+              "kind": "gabarito",
+              "filename": "2017-eear-eags-enfermagem-gabarito.pdf",
+              "url": "https://arquivos.qconcursos.com/prova/arquivo_gabarito/54564/aeronautica-2017-eear-sargento-da-aeronautica-enfermagem-gabarito.pdf"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
