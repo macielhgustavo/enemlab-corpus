@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "source": "QConcursos",
+  "verified_at": "2026-09-11",
+  "purpose": "Verified direct-download EEAR 2014 PDFs exposed by QConcursos.",
+  "notes": [
+    "Only entries whose direct Prova and Gabarito links were exposed by the verified QConcursos page are included.",
+    "Other 2014 EEAR specialties are intentionally omitted when their current source page does not expose downloadable files; no arquivo IDs are guessed.",
+    "QConcursos labels these as 2014 based on application date while the linked FAB material belongs to the EAGS 2015 admission cycle; provenance preserves both contexts."
+  ],
+  "collections": [
+    {
+      "id": "eear",
+      "display_name": "EEAR",
+      "exams": [
+        {
+          "year": 2014,
+          "label": "EEAR EAGS - Administração",
+          "source_page": "https://www.qconcursos.com/questoes-militares/provas/aeronautica-2014-eear-sargento-da-aeronautica-administracao",
+          "files": [
+            {
+              "kind": "prova",
+              "filename": "2014-eear-eags-administracao-prova.pdf",
+              "url": "https://arquivos.qconcursos.com/prova/arquivo_prova/42280/aeronautica-2014-eear-sargento-da-aeronautica-administracao-prova.pdf"
+            },
+            {
+              "kind": "gabarito",
+              "filename": "2014-eear-eags-administracao-gabarito.pdf",
+              "url": "https://arquivos.qconcursos.com/prova/arquivo_gabarito/42280/aeronautica-2014-eear-sargento-da-aeronautica-administracao-gabarito.pdf"
+            }
+          ]
+        },
+        {
+          "year": 2014,
+          "label": "EEAR EAGS - Laboratório",
+          "source_page": "https://www.qconcursos.com/questoes-militares/provas/aeronautica-2014-eear-sargento-da-aeronautica-laboratorio",
+          "files": [
+            {
+              "kind": "prova",
+              "filename": "2014-eear-eags-laboratorio-prova.pdf",
+              "url": "https://arquivos.qconcursos.com/prova/arquivo_prova/42282/aeronautica-2014-eear-sargento-da-aeronautica-laboratorio-prova.pdf"
+            },
+            {
+              "kind": "gabarito",
+              "filename": "2014-eear-eags-laboratorio-gabarito.pdf",
+              "url": "https://arquivos.qconcursos.com/prova/arquivo_gabarito/42282/aeronautica-2014-eear-sargento-da-aeronautica-laboratorio-gabarito.pdf"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
