@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "source": "QConcursos",
+  "verified_at": "2026-09-11",
+  "purpose": "Verified direct-download EEAR 2009 PDFs exposed by QConcursos.",
+  "notes": [
+    "Only entries whose direct Prova and Gabarito links were exposed by the verified QConcursos page are included.",
+    "Administration Turma 2 and other 2009 specialties are omitted when their current source pages do not expose independently verifiable downloads; no arquivo IDs are guessed."
+  ],
+  "collections": [
+    {
+      "id": "eear",
+      "display_name": "EEAR",
+      "exams": [
+        {
+          "year": 2009,
+          "label": "EEAR EAGS - Administração - Turma 1",
+          "source_page": "https://www.qconcursos.com/questoes-militares/provas/aeronautica-2009-eear-sargento-da-aeronautica-administracao-turma-1",
+          "files": [
+            {
+              "kind": "prova",
+              "filename": "2009-eear-eags-administracao-turma-1-prova.pdf",
+              "url": "https://arquivos.qconcursos.com/prova/arquivo_prova/29887/aeronautica-2009-eear-sargento-da-aeronautica-administracao-turma-1-prova.pdf"
+            },
+            {
+              "kind": "gabarito",
+              "filename": "2009-eear-eags-administracao-turma-1-gabarito.pdf",
+              "url": "https://arquivos.qconcursos.com/prova/arquivo_gabarito/29887/aeronautica-2009-eear-sargento-da-aeronautica-administracao-turma-1-gabarito.pdf"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
