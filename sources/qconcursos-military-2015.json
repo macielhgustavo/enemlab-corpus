@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "source": "QConcursos",
+  "verified_at": "2026-09-11",
+  "purpose": "Verified direct-download EEAR 2015 PDFs exposed by QConcursos.",
+  "notes": [
+    "Only entries with both direct Prova and Gabarito links exposed by the verified QConcursos page are included.",
+    "The 2015 Enfermagem page exposed a Prova link but no separate Gabarito link in the verified snapshot, so it is intentionally omitted from this corpus pass.",
+    "No arquivo IDs or missing URLs are guessed."
+  ],
+  "collections": [
+    {
+      "id": "eear",
+      "display_name": "EEAR",
+      "exams": [
+        {
+          "year": 2015,
+          "label": "EEAR EAGS - Administração",
+          "source_page": "https://www.qconcursos.com/questoes-militares/provas/aeronautica-2015-eear-sargento-da-aeronautica-administracao",
+          "files": [
+            {
+              "kind": "prova",
+              "filename": "2015-eear-eags-administracao-prova.pdf",
+              "url": "https://arquivos.qconcursos.com/prova/arquivo_prova/44892/aeronautica-2015-eear-sargento-da-aeronautica-administracao-prova.pdf"
+            },
+            {
+              "kind": "gabarito",
+              "filename": "2015-eear-eags-administracao-gabarito.pdf",
+              "url": "https://arquivos.qconcursos.com/prova/arquivo_gabarito/44892/aeronautica-2015-eear-sargento-da-aeronautica-administracao-gabarito.pdf"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
