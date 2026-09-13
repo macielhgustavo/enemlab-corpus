@@ -32,15 +32,26 @@ def package_name(collection_id: str, year: int) -> str:
     return collection_id
 
 
+def included_in_package(collection_id: str, label: str) -> bool:
+    # Historical corpus rule: only the general-area subset is packaged for ESA.
+    if collection_id == "esa":
+        return "geral" in label.lower()
+    return True
+
+
 def collect() -> dict:
+    manifests = load_source_manifests()
     packages: dict[str, dict] = {}
     seen_identity: set[tuple[str, int, str]] = set()
     seen_url: set[str] = set()
-    files = 0
-    exams = 0
+    candidate_files = 0
+    candidate_exams = 0
+    packaged_files = 0
+    packaged_exams = 0
+    excluded = 0
     warnings: list[str] = []
 
-    for manifest_path, manifest in load_source_manifests():
+    for manifest_path, manifest in manifests:
         for collection in manifest["collections"]:
             cid = str(collection.get("id") or "").strip()
             if not cid:
@@ -51,22 +62,34 @@ def collect() -> dict:
                 source_page = str(exam.get("source_page") or "").strip()
                 if not isinstance(year, int) or not label or not source_page:
                     raise RuntimeError(f"invalid exam in {manifest_path}: {exam}")
+
                 identity = (cid, year, label)
                 if identity in seen_identity:
                     warnings.append(f"duplicate exam identity: {identity}")
                     continue
                 seen_identity.add(identity)
 
-                package = package_name(cid, year)
-                bucket = packages.setdefault(package, {"collections": set(), "exams": 0, "files": 0, "years": set()})
-                bucket["collections"].add(cid)
-                bucket["exams"] += 1
-                bucket["years"].add(year)
-                exams += 1
-
                 exam_files = exam.get("files")
                 if not isinstance(exam_files, list) or not exam_files:
                     raise RuntimeError(f"exam without files: {identity}")
+                candidate_exams += 1
+                candidate_files += len(exam_files)
+
+                include = included_in_package(cid, label)
+                if not include:
+                    excluded += 1
+
+                package = package_name(cid, year)
+                bucket = packages.setdefault(
+                    package,
+                    {"collections": set(), "exams": 0, "files": 0, "years": set()},
+                )
+                bucket["collections"].add(cid)
+                bucket["years"].add(year)
+                if include:
+                    bucket["exams"] += 1
+                    packaged_exams += 1
+
                 local_names: set[str] = set()
                 for item in exam_files:
                     filename = str(item.get("filename") or "").strip()
@@ -80,8 +103,9 @@ def collect() -> dict:
                     if url in seen_url:
                         warnings.append(f"reused document url: {url}")
                     seen_url.add(url)
-                    bucket["files"] += 1
-                    files += 1
+                    if include:
+                        bucket["files"] += 1
+                        packaged_files += 1
 
     normalized = {
         name: {
@@ -94,10 +118,14 @@ def collect() -> dict:
     }
     return {
         "schema_version": 1,
-        "source_manifests": len(load_source_manifests()),
-        "exams": exams,
-        "files": files,
-        "packages": normalized,
+        "source_manifests": len(manifests),
+        "manifest_candidates": {"exams": candidate_exams, "files": candidate_files},
+        "packaging_plan": {
+            "exams": packaged_exams,
+            "files": packaged_files,
+            "excluded_by_rule": excluded,
+            "packages": normalized,
+        },
         "warnings": warnings,
     }
 
@@ -130,11 +158,14 @@ def inspect_zip(path: Path) -> dict:
         declared_files = sum(len(exam.get("files", [])) for exam in manifest.get("exams", []))
         if declared_files != len(pdfs):
             failures.append(f"manifest files={declared_files}, zip pdfs={len(pdfs)}")
+        if len(sums) != len(pdfs):
+            failures.append(f"sha entries={len(sums)}, zip pdfs={len(pdfs)}")
 
         return {
             "asset": path.name,
             "package_id": manifest.get("package_id"),
             "collection": manifest.get("collection"),
+            "source": manifest.get("source"),
             "exams": len(manifest.get("exams", [])),
             "pdfs": len(pdfs),
             "size_bytes": path.stat().st_size,
@@ -143,15 +174,16 @@ def inspect_zip(path: Path) -> dict:
         }
 
 
-def inspect_release(directory: Path, expected_packages: set[str]) -> list[dict]:
-    results: list[dict] = []
-    for package in sorted(expected_packages):
-        path = directory / f"{package}.zip"
-        if not path.exists():
-            results.append({"asset": path.name, "missing": True})
-            continue
-        results.append(inspect_zip(path))
-    return results
+def inspect_release(directory: Path, expected_packages: set[str]) -> dict:
+    assets = [inspect_zip(path) for path in sorted(directory.glob("*.zip"))]
+    present = {Path(item["asset"]).stem for item in assets}
+    return {
+        "assets": assets,
+        # A PR may add a package before it exists in corpus-latest. This is a
+        # freshness signal, not corruption of the current release.
+        "not_yet_in_current_release": sorted(expected_packages - present),
+        "unexpected_in_current_release": sorted(present - expected_packages),
+    }
 
 
 def main() -> int:
@@ -162,7 +194,8 @@ def main() -> int:
 
     report = collect()
     if args.release_dir:
-        report["release"] = inspect_release(args.release_dir, set(report["packages"]))
+        expected = set(report["packaging_plan"]["packages"])
+        report["current_release"] = inspect_release(args.release_dir, expected)
 
     text = json.dumps(report, ensure_ascii=False, indent=2)
     print(text)
@@ -170,8 +203,9 @@ def main() -> int:
         Path(args.json_path).write_text(text + "\n", encoding="utf-8")
 
     release_failures = [
-        item for item in report.get("release", [])
-        if item.get("missing") or item.get("failures")
+        item
+        for item in report.get("current_release", {}).get("assets", [])
+        if item.get("failures")
     ]
     return 1 if release_failures else 0
 
