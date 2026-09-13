@@ -1,13 +1,14 @@
 {
   "schema_version": 1,
-  "source": "VUNESP + public mirror",
+  "source": "VUNESP + public mirrors",
   "verified_at": "2026-09-12",
   "purpose": "Seed the next standard A-E vestibular for the Studium Labs ingestion pipeline.",
   "notes": [
     "The 2026 first phase has 90 objective questions with one A-E answer per item.",
-    "The answer key URL is hosted by VUNESP.",
-    "The exam PDF is a public mirror because the VUNESP Provas e Gabaritos area currently redirects to candidate login.",
-    "Mirror provenance must remain explicit; this manifest does not relabel the mirrored exam PDF as official.",
+    "The canonical answer key is published by VUNESP and was manually cross-checked against the mirror used for automated retrieval.",
+    "VUNESP returns HTTP 403 to the GitHub Actions downloader for the answer-key stream, so the package retrieves identical bytes/content from a public mirror while preserving the official URL as authority evidence.",
+    "The exam PDF is also a public mirror because the VUNESP Provas e Gabaritos area currently redirects to candidate login.",
+    "Mirror provenance must remain explicit; mirrored bytes are never relabeled as official.",
     "This corpus entry is an ingestion input, not automatic catalog publication."
   ],
   "collections": [
@@ -25,13 +26,17 @@
               "kind": "prova",
               "filename": "2026-unesp-primeira-fase-versao-1-prova.pdf",
               "url": "https://s3.glbimg.com/v1/AUTH_595b237b135e4899b878697d214a26e9/unesp_2026_resolucao_primeira_fase/PROVA_VERSAO_UM_UNESP_2026.pdf",
-              "authority": "mirror"
+              "authority": "mirror",
+              "canonical_source_page": "https://www.vunesp.com.br/VNSP2504"
             },
             {
               "kind": "gabarito",
               "filename": "2026-unesp-primeira-fase-versao-1-gabarito.pdf",
-              "url": "https://documento.vunesp.com.br/documento/stream/NzQ2NDIxNg%3D%3D",
-              "authority": "official"
+              "url": "https://www.curso-objetivo.br/vestibular/resolucao-comentada/unesp/2026/1fase/UNESP2026_1fase_gabarito.pdf",
+              "authority": "mirror",
+              "canonical_url": "https://documento.vunesp.com.br/documento/stream/NzQ2NDIxNg%3D%3D",
+              "canonical_authority": "official",
+              "verified_against_canonical": true
             }
           ]
         }
