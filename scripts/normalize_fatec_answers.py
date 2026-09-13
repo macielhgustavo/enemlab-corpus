@@ -6,7 +6,11 @@ import re
 import subprocess
 from pathlib import Path
 
-QUESTION_COUNT_RE = re.compile(r"cont[eé]m\s+(\d{1,3})\s*\([^)]*\)\s*quest", re.IGNORECASE)
+QUESTION_COUNT_RE = re.compile(
+    r"cont(?:[eé]m|endo)\s+(\d{1,3})\s*\([^)]*\)\s*quest",
+    re.IGNORECASE,
+)
+QUESTION_NUMBER_RE = re.compile(r"^\s*(\d{1,3})\.\s+", re.MULTILINE)
 ANSWER_RE = re.compile(r"(?<!\d)(\d{1,3})\s*:?\s+([A-E])\b", re.IGNORECASE)
 
 
@@ -59,11 +63,25 @@ def parse_answers(text: str, expected: int) -> dict[int, str]:
 
 
 def expected_count(exam_pdf: Path) -> int:
-    text = pdf_text(exam_pdf, first_pages_only=True)
-    match = QUESTION_COUNT_RE.search(text)
-    if not match:
+    first_pages = pdf_text(exam_pdf, first_pages_only=True)
+    declared = QUESTION_COUNT_RE.search(first_pages)
+    if declared:
+        return int(declared.group(1))
+
+    # Some FATEC booklets use wording/layout that differs from older editions.
+    # Fall back to the actual numbered objective items, but require a complete
+    # 1..N sequence instead of trusting the largest number in isolation.
+    full_text = pdf_text(exam_pdf)
+    numbers = sorted({int(match.group(1)) for match in QUESTION_NUMBER_RE.finditer(full_text)})
+    if not numbers:
         raise RuntimeError(f"could not determine question count from {exam_pdf}")
-    return int(match.group(1))
+    expected = numbers[-1]
+    missing = [number for number in range(1, expected + 1) if number not in numbers]
+    if missing:
+        raise RuntimeError(
+            f"question numbering is incomplete in {exam_pdf}: missing {missing}"
+        )
+    return expected
 
 
 def main() -> int:
