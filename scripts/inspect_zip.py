@@ -4,6 +4,9 @@ import argparse
 import hashlib
 import io
 import json
+import shutil
+import subprocess
+import tempfile
 from collections import Counter
 from pathlib import Path
 from zipfile import BadZipFile, ZipFile
@@ -28,14 +31,70 @@ def archive_summary(archive: ZipFile) -> dict:
     }
 
 
+def inspect_rar(raw: bytes, name: str) -> dict:
+    executable = shutil.which("7z") or shutil.which("7zz")
+    if not executable:
+        return {
+            "name": name,
+            "format": "rar",
+            "inspectable": False,
+            "reason": "7z is unavailable on this runner",
+        }
+
+    with tempfile.NamedTemporaryFile(suffix=".rar") as handle:
+        handle.write(raw)
+        handle.flush()
+        result = subprocess.run(
+            [executable, "l", "-ba", handle.name],
+            check=False,
+            capture_output=True,
+            text=True,
+        )
+
+    if result.returncode != 0:
+        return {
+            "name": name,
+            "format": "rar",
+            "inspectable": False,
+            "reason": result.stderr.strip() or "7z could not list this RAR",
+        }
+
+    names: list[str] = []
+    extensions: Counter[str] = Counter()
+    uncompressed = 0
+    for line in result.stdout.splitlines():
+        parts = line.split(maxsplit=5)
+        if len(parts) < 6:
+            continue
+        _date, _time, attrs, size, _compressed, entry_name = parts
+        if "D" in attrs:
+            continue
+        try:
+            uncompressed += int(size)
+        except ValueError:
+            continue
+        names.append(entry_name)
+        extensions[Path(entry_name).suffix.lower() or "<none>"] += 1
+
+    return {
+        "name": name,
+        "format": "rar",
+        "inspectable": True,
+        "entries": len(names),
+        "extensions": dict(sorted(extensions.items())),
+        "uncompressed_bytes": uncompressed,
+        "names": names,
+    }
+
+
 def nested_archives(archive: ZipFile) -> list[dict]:
     nested: list[dict] = []
     for item in archive.infolist():
         if item.is_dir():
             continue
         suffix = Path(item.filename).suffix.lower()
+        raw = archive.read(item)
         if suffix == ".zip":
-            raw = archive.read(item)
             try:
                 with ZipFile(io.BytesIO(raw)) as child:
                     nested.append({
@@ -52,12 +111,7 @@ def nested_archives(archive: ZipFile) -> list[dict]:
                     "error": "invalid nested zip",
                 })
         elif suffix == ".rar":
-            nested.append({
-                "name": item.filename,
-                "format": "rar",
-                "inspectable": False,
-                "reason": "RAR is not parsed by Python stdlib",
-            })
+            nested.append(inspect_rar(raw, item.filename))
     return nested
 
 
