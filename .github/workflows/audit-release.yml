@@ -13,3 +13,18 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: python scripts/audit_corpus.py --json corpus-audit.json
+      - name: Fetch release assets
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p .cache/release
+          gh release download corpus-latest --pattern '*.zip' --dir .cache/release
+      - name: Inspect release assets
+        run: python scripts/audit_corpus.py --release-dir .cache/release --json corpus-release-audit.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: corpus-audit
+          path: |
+            corpus-audit.json
+            corpus-release-audit.json
