@@ -1,0 +1,32 @@
+name: Sanitize FATEC legacy corpus
+
+on:
+  pull_request:
+    paths:
+      - 'fatec.zip'
+      - 'scripts/sanitize_fatec_legacy.py'
+      - '.github/workflows/sanitize-fatec-legacy.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  sanitize:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Sanitize legacy archive
+        run: python scripts/sanitize_fatec_legacy.py --input fatec.zip --output-dir .cache/fatec-sanitized
+
+      - name: Save sanitized candidate
+        uses: actions/upload-artifact@v4
+        with:
+          name: fatec-sanitized-candidate
+          path: |
+            .cache/fatec-sanitized/manifest.json
+            .cache/fatec-sanitized/documents/
+            .cache/fatec-sanitized.zip
+          retention-days: 7
