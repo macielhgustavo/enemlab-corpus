@@ -1,17 +1,22 @@
-name: Fetch QConcursos military corpus
+name: Build corpus packages
 
 on:
+  pull_request:
+    paths:
+      - 'sources/*.json'
+      - '.github/workflows/fetch-qconcursos-military.yml'
   push:
     branches: [main]
     paths:
-      - 'sources/qconcursos-military*.json'
+      - 'sources/*.json'
+      - '.github/workflows/fetch-qconcursos-military.yml'
   workflow_dispatch:
 
 permissions:
   contents: write
 
 concurrency:
-  group: qconcursos-military-corpus
+  group: corpus-packages-${{ github.ref }}
   cancel-in-progress: false
 
 jobs:
@@ -33,31 +38,39 @@ jobs:
           import urllib.request
           from pathlib import Path
 
-          manifest_paths = sorted(Path("sources").glob("qconcursos-military*.json"))
+          manifest_paths = sorted(Path("sources").glob("*.json"))
           if not manifest_paths:
-              raise RuntimeError("no QConcursos military manifests found")
+              raise RuntimeError("no corpus source manifests found")
 
           merged = {}
           for manifest_path in manifest_paths:
               manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
-              for collection in manifest["collections"]:
+              if manifest.get("schema_version") != 1:
+                  raise RuntimeError(f"unsupported schema in {manifest_path}")
+              source_name = str(manifest.get("source") or "unknown")
+              for collection in manifest.get("collections", []):
                   slug = collection["id"]
                   current = merged.setdefault(slug, {
                       "id": slug,
                       "display_name": collection["display_name"],
                       "exams": [],
                       "source_manifests": [],
+                      "source_names": set(),
                   })
                   current["exams"].extend(collection["exams"])
                   current["source_manifests"].append(str(manifest_path))
+                  current["source_names"].add(source_name)
 
-          work_root = Path(".cache/qconcursos-military")
+          work_root = Path(".cache/corpus-build")
+          asset_root = Path(".cache/release-assets")
           shutil.rmtree(work_root, ignore_errors=True)
+          shutil.rmtree(asset_root, ignore_errors=True)
           work_root.mkdir(parents=True, exist_ok=True)
+          asset_root.mkdir(parents=True, exist_ok=True)
 
           opener = urllib.request.build_opener()
           opener.addheaders = [
-              ("User-Agent", "Mozilla/5.0 (compatible; enemlab-corpus/1.0; +https://github.com/macielhgustavo/enemlab-corpus)"),
+              ("User-Agent", "Mozilla/5.0 (compatible; studium-labs-corpus/1.0; +https://github.com/macielhgustavo/enemlab-corpus)"),
               ("Accept", "application/pdf,*/*;q=0.8"),
           ]
 
@@ -65,7 +78,8 @@ jobs:
               last_error = None
               for attempt in range(4):
                   try:
-                      with opener.open(url, timeout=60) as response, dest.open("wb") as out:
+                      request = urllib.request.Request(url)
+                      with opener.open(request, timeout=90) as response, dest.open("wb") as out:
                           while True:
                               chunk = response.read(1024 * 1024)
                               if not chunk:
@@ -93,38 +107,30 @@ jobs:
           packages = []
           for collection in merged.values():
               slug = collection["id"]
+              common = {
+                  "collection_id": slug,
+                  "display_name": collection["display_name"],
+                  "source_manifests": collection["source_manifests"],
+                  "source_names": sorted(collection["source_names"]),
+              }
               if slug == "eear":
                   groups = {}
                   for exam in collection["exams"]:
                       year = int(exam["year"])
                       groups.setdefault(eear_bucket(year), []).append(exam)
                   for package_id, exams in sorted(groups.items()):
-                      packages.append({
-                          "package_id": package_id,
-                          "collection_id": slug,
-                          "display_name": collection["display_name"],
-                          "exams": exams,
-                          "source_manifests": collection["source_manifests"],
-                      })
+                      packages.append({**common, "package_id": package_id, "exams": exams})
               elif slug == "esa":
                   exams = [
                       exam for exam in collection["exams"]
                       if "geral" in exam.get("label", "").lower()
                   ]
-                  packages.append({
-                      "package_id": slug,
-                      "collection_id": slug,
-                      "display_name": collection["display_name"],
-                      "exams": exams,
-                      "source_manifests": collection["source_manifests"],
-                  })
+                  packages.append({**common, "package_id": slug, "exams": exams})
               else:
                   packages.append({
+                      **common,
                       "package_id": slug,
-                      "collection_id": slug,
-                      "display_name": collection["display_name"],
                       "exams": collection["exams"],
-                      "source_manifests": collection["source_manifests"],
                   })
 
           built = []
@@ -137,7 +143,7 @@ jobs:
 
               for exam in sorted(package["exams"], key=lambda e: (int(e["year"]), e.get("label", ""))):
                   if not exam.get("files"):
-                      raise RuntimeError(f"exam has no verified direct files: {exam.get('label')}")
+                      raise RuntimeError(f"exam has no direct files: {exam.get('label')}")
                   resolved_exam = {k: v for k, v in exam.items() if k != "files"}
                   resolved_files = []
                   for item in exam["files"]:
@@ -156,12 +162,13 @@ jobs:
                   resolved_exam["files"] = resolved_files
                   resolved.append(resolved_exam)
 
+              source_names = package["source_names"]
               packaged_manifest = {
                   "schema_version": 1,
                   "package_id": package_id,
                   "collection": package["collection_id"],
                   "display_name": package["display_name"],
-                  "source": "QConcursos",
+                  "source": source_names[0] if len(source_names) == 1 else " + ".join(source_names),
                   "generated_from": package["source_manifests"],
                   "exams": resolved,
               }
@@ -175,13 +182,11 @@ jobs:
                   hashes.append(f"{hashlib.sha256(path.read_bytes()).hexdigest()}  {path.name}")
               (collection_dir / "SHA256SUMS.txt").write_text("\n".join(hashes) + "\n", encoding="utf-8")
 
-              zip_path = Path(f"{package_id}.zip")
-              if zip_path.exists():
-                  zip_path.unlink()
-              shutil.make_archive(package_id, "zip", root_dir=collection_dir)
+              base_name = asset_root / package_id
+              zip_path = Path(shutil.make_archive(str(base_name), "zip", root_dir=collection_dir))
               size = zip_path.stat().st_size
               if size >= 95 * 1024 * 1024:
-                  raise RuntimeError(f"{zip_path} reached 95 MiB; split this package into a smaller year range")
+                  raise RuntimeError(f"{zip_path} reached 95 MiB; split this package into a smaller range")
               built.append({
                   "asset": zip_path.name,
                   "size_bytes": size,
@@ -195,21 +200,29 @@ jobs:
               "source_manifests": [str(path) for path in manifest_paths],
               "assets": built,
           }
-          Path("corpus-release.json").write_text(
+          (asset_root / "corpus-release.json").write_text(
               json.dumps(release_index, ensure_ascii=False, indent=2) + "\n",
               encoding="utf-8",
           )
           print(json.dumps(release_index, indent=2))
           PY
 
+      - name: Preserve built packages for review
+        uses: actions/upload-artifact@v4
+        with:
+          name: corpus-packages
+          path: .cache/release-assets/
+          retention-days: 7
+
       - name: Publish corpus release assets
+        if: github.event_name != 'pull_request'
         shell: bash
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           TAG="corpus-latest"
-          TITLE="ENEMLab corpus (latest)"
-          NOTES="Generated corpus packages. Source of truth: versioned manifests under sources/. Assets are rebuilt and replaced on manifest changes."
+          TITLE="Studium Labs corpus (latest)"
+          NOTES="Generated document corpus. Source of truth: versioned manifests under sources/. Assets are rebuilt from verified direct URLs; provenance remains in each package manifest."
 
           if gh release view "$TAG" >/dev/null 2>&1; then
             gh release edit "$TAG" --title "$TITLE" --notes "$NOTES"
@@ -217,4 +230,13 @@ jobs:
             gh release create "$TAG" --target "$GITHUB_SHA" --title "$TITLE" --notes "$NOTES"
           fi
 
-          gh release upload "$TAG" eear-*.zip esa.zip espcex.zip corpus-release.json --clobber
+          mapfile -t ASSETS < <(python - <<'PY'
+          import json
+          from pathlib import Path
+          root = Path('.cache/release-assets')
+          data = json.loads((root / 'corpus-release.json').read_text())
+          for item in data['assets']:
+              print(root / item['asset'])
+          PY
+          )
+          gh release upload "$TAG" "${ASSETS[@]}" .cache/release-assets/corpus-release.json --clobber

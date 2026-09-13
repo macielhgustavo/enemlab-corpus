@@ -1,0 +1,33 @@
+name: Audit corpus
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: python scripts/audit_corpus.py --json corpus-audit.json
+      - name: Inspect legacy repository ZIP
+        run: python scripts/inspect_zip.py fatec.zip --json fatec-audit.json
+      - name: Fetch release assets
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p .cache/release
+          gh release download corpus-latest --pattern '*.zip' --dir .cache/release
+      - name: Inspect release assets
+        run: python scripts/audit_corpus.py --release-dir .cache/release --json corpus-release-audit.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: corpus-audit
+          path: |
+            corpus-audit.json
+            corpus-release-audit.json
+            fatec-audit.json
