@@ -6,8 +6,11 @@ import re
 import subprocess
 from pathlib import Path
 
+# `pdftotext -layout` may interleave the two columns of a cover page between
+# the written-out count and the word "questões". The stable evidence is the
+# declaration itself: "contém/contendo N (N por extenso)".
 QUESTION_COUNT_RE = re.compile(
-    r"cont(?:[eé]m|endo)\s+(\d{1,3})\s*\([^)]*\)\s*quest",
+    r"cont(?:[eé]m|endo)\s+(\d{1,3})\s*\([^)]*\)",
     re.IGNORECASE,
 )
 QUESTION_NUMBER_RE = re.compile(r"^\s*(\d{1,3})\.\s+", re.MULTILINE)
@@ -68,9 +71,9 @@ def expected_count(exam_pdf: Path) -> int:
     if declared:
         return int(declared.group(1))
 
-    # Some FATEC booklets use wording/layout that differs from older editions.
-    # Fall back to the actual numbered objective items, but require a complete
-    # 1..N sequence instead of trusting the largest number in isolation.
+    # Fallback for editions whose cover does not declare the count in a
+    # machine-readable form. Require a complete 1..N sequence instead of
+    # trusting only the largest number found.
     full_text = pdf_text(exam_pdf)
     numbers = sorted({int(match.group(1)) for match in QUESTION_NUMBER_RE.finditer(full_text)})
     if not numbers:
