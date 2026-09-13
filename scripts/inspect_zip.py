@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 import hashlib
+import io
 import json
 from collections import Counter
 from pathlib import Path
@@ -16,21 +17,61 @@ def digest(path: Path) -> str:
     return h.hexdigest()
 
 
+def archive_summary(archive: ZipFile) -> dict:
+    files = [item for item in archive.infolist() if not item.is_dir()]
+    extensions = Counter(Path(item.filename).suffix.lower() or "<none>" for item in files)
+    return {
+        "entries": len(files),
+        "extensions": dict(sorted(extensions.items())),
+        "uncompressed_bytes": sum(item.file_size for item in files),
+        "names": [item.filename for item in files],
+    }
+
+
+def nested_archives(archive: ZipFile) -> list[dict]:
+    nested: list[dict] = []
+    for item in archive.infolist():
+        if item.is_dir():
+            continue
+        suffix = Path(item.filename).suffix.lower()
+        if suffix == ".zip":
+            raw = archive.read(item)
+            try:
+                with ZipFile(io.BytesIO(raw)) as child:
+                    nested.append({
+                        "name": item.filename,
+                        "format": "zip",
+                        "inspectable": True,
+                        **archive_summary(child),
+                    })
+            except BadZipFile:
+                nested.append({
+                    "name": item.filename,
+                    "format": "zip",
+                    "inspectable": False,
+                    "error": "invalid nested zip",
+                })
+        elif suffix == ".rar":
+            nested.append({
+                "name": item.filename,
+                "format": "rar",
+                "inspectable": False,
+                "reason": "RAR is not parsed by Python stdlib",
+            })
+    return nested
+
+
 def inspect(path: Path) -> dict:
     if not path.exists():
         raise FileNotFoundError(path)
     try:
         with ZipFile(path) as archive:
-            files = [item for item in archive.infolist() if not item.is_dir()]
-            extensions = Counter(Path(item.filename).suffix.lower() or "<none>" for item in files)
             return {
                 "file": path.name,
                 "size_bytes": path.stat().st_size,
                 "sha256": digest(path),
-                "entries": len(files),
-                "extensions": dict(sorted(extensions.items())),
-                "uncompressed_bytes": sum(item.file_size for item in files),
-                "names": [item.filename for item in files],
+                **archive_summary(archive),
+                "nested_archives": nested_archives(archive),
             }
     except BadZipFile as exc:
         raise RuntimeError(f"invalid zip: {path}") from exc
