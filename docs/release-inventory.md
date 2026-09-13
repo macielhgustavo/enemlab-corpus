@@ -1,10 +1,10 @@
-# Inventário medido do corpus-latest
+# Inventário medido do corpus
 
-Medição executada no GitHub Actions em 2026-09-13 pelo workflow `Audit corpus`.
+Medições executadas no GitHub Actions em 2026-09-13 pelos workflows de auditoria do corpus.
+
+## `corpus-latest` publicado
 
 O auditor baixou os ZIPs do release `corpus-latest`, abriu cada pacote e conferiu `manifest.json`, `SHA256SUMS.txt`, quantidade de PDFs e SHA-256 de cada PDF presente.
-
-## Resultado do release
 
 | Asset | Provas no pacote | PDFs | Tamanho |
 |---|---:|---:|---:|
@@ -15,24 +15,81 @@ O auditor baixou os ZIPs do release `corpus-latest`, abriu cada pacote e conferi
 | `espcex.zip` | 2 | 4 | 19.021.083 bytes |
 | **Total** | **70** | **138** | **87.961.126 bytes** |
 
-Todos os PDFs presentes nos cinco pacotes passaram na conferência de hash interno dessa execução.
+Todos os 138 PDFs presentes passaram na conferência de hash interno dessa execução.
 
-## Manifests versus release
+## Candidatos versionados versus release
 
-Os 14 manifests versionados descrevem 72 entradas de prova e 142 arquivos candidatos. O release contém 70 provas e 138 PDFs.
+Com `sources/unesp.json`, existem agora **15 manifests**, **73 candidatos de prova** e **144 arquivos candidatos**.
 
-A diferença observada está na coleção `esa`: os manifests somam 6 entradas/12 arquivos, enquanto o pacote publicado contém 4 entradas/8 PDFs. A workflow de geração atual aplica um filtro antes de construir esse pacote.
+A regra atual de empacotamento seleciona **71 provas / 140 arquivos** porque duas entradas ESA ficam fora pela regra histórica da Área Geral. O release público ainda contém 70 provas/138 PDFs porque a UNESP adicionada nesta branch ainda não foi publicada.
 
-Portanto, a partir deste ponto é importante usar termos distintos:
+Assim, usamos três termos diferentes:
 
-- **manifest candidates**: tudo que está descrito nos manifests de origem;
-- **release assets**: o que realmente atravessou a regra de empacotamento e existe nos ZIPs publicados;
-- **normalized questions**: conteúdo por questão depois de passar pela ingestion/validation do `enemlab`.
+- **manifest candidates**: tudo que está descrito em `sources/`;
+- **release assets**: o que realmente foi construído e publicado em ZIP;
+- **normalized questions**: questões depois de ingestion, validação/evidence e review no `enemlab`.
 
-Essas três camadas não devem ser tratadas como equivalentes.
+Essas camadas não são equivalentes.
 
-## O que esta medição prova
+## UNESP 2026
 
-Ela prova que os ZIPs do release existem, são arquivos válidos, contêm os PDFs declarados em seus manifests internos e que os hashes internos conferem para os bytes presentes.
+A branch adiciona um candidato para a 1ª fase UNESP 2026, versão 1:
 
-Ela não prova, sozinha, que cada PDF corresponde semanticamente à edição esperada, que o gabarito está correto, que a fonte é oficial ou que o documento pode ser redistribuído. Essas propriedades pertencem a provenance, validation/evidence e política de direitos.
+- caderno: espelho público, explicitamente marcado como `mirror`;
+- gabarito: documento hospedado pela VUNESP, marcado como `official`;
+- formato conhecido: 90 questões objetivas A–E;
+- estado: candidato de corpus, ainda sem publicação automática no catálogo do Studium Labs.
+
+O package builder genérico desta branch deve produzir `unesp.zip` em PR como artifact antes de qualquer publicação no release.
+
+## `fatec.zip` legado
+
+O arquivo raiz `fatec.zip` foi aberto recursivamente no runner. Ele tem:
+
+- tamanho: **21.832.082 bytes**;
+- SHA-256: `dcb3b4d67a9eacaaa4293d4d4276c9bb4767429d843e392f8e6b45f681c1ec7d`;
+- 9 subpacotes: 7 ZIP e 2 RAR;
+- todos os 9 subpacotes foram inventariados; os RARs foram abertos via `7z`.
+
+### Conteúdo encontrado
+
+| Edição/pacote | Conteúdo observado | Estado inicial |
+|---|---|---|
+| 2022.2 | `Prova.pdf` + `Gabarito.pdf` | candidato plausível |
+| 2023.1 | `Prova.pdf` + `Gabarito.pdf` | candidato plausível |
+| 2023.2 | `provas-fatecs-2023-2.pdf` + `gabarito-fatecs-2023-2.pdf` | candidato plausível |
+| 2024.1 | `Gabarito.pdf` + `sisu-2024-termo-de-adesao-ufc.pdf` | **quarentena: caderno ausente/arquivo estranho** |
+| 2024.2 | prova + gabarito FATEC | candidato plausível |
+| 2025.1 | prova + gabarito + `edital-do-prouni-2025.pdf` | **quarentena: arquivo extra não relacionado** |
+| 2025.2 | `Prova.pdf` + `Gabarito.pdf` | candidato plausível |
+| 2026.1 | prova + gabarito FATEC | candidato plausível |
+| 2026.2 | prova + gabarito FATEC | candidato plausível |
+
+“Candidato plausível” significa somente que nomes/estrutura parecem compatíveis. Ainda não significa aprovação semântica do PDF ou do gabarito.
+
+### Regra para FATEC
+
+`fatec.zip` não entra como um todo na ingestion. Antes disso:
+
+1. extrair cada edição para um manifest próprio;
+2. excluir/quarentenar arquivos estranhos;
+3. validar que o PDF de prova corresponde à edição declarada;
+4. validar o gabarito e o domínio de respostas;
+5. calcular SHA/tamanho por documento;
+6. só então passar a edição pelo contrato corpus → ingestion → review.
+
+2024.1 deve permanecer bloqueada até localizar o caderno correto. 2025.1 pode ter prova/gabarito aproveitáveis, mas o edital do Prouni deve ser descartado do corpus daquela edição.
+
+## O que a auditoria de ZIP prova — e o que não prova
+
+Ela prova que os arquivos existem, são archives legíveis, que os packages gerados têm manifests internos coerentes e, no release atual, que os hashes internos conferem para os bytes presentes.
+
+Ela não prova sozinha:
+
+- correspondência semântica do documento com a edição;
+- correção do gabarito;
+- autoridade oficial da origem;
+- permissão de redistribuição;
+- fidelidade de texto/matemática/imagem após extração.
+
+Essas propriedades pertencem a provenance, validation/evidence e review da ingestion.
