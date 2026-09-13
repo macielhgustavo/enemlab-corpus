@@ -1,0 +1,4 @@
+{
+  "version": 1,
+  "required": ["collection", "year", "document_role", "url", "sha256"]
+}
