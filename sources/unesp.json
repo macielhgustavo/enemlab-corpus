@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "source": "VUNESP + public mirror",
+  "verified_at": "2026-09-12",
+  "purpose": "Seed the next standard A-E vestibular for the Studium Labs ingestion pipeline.",
+  "notes": [
+    "The 2026 first phase has 90 objective questions with one A-E answer per item.",
+    "The answer key URL is hosted by VUNESP.",
+    "The exam PDF is a public mirror because the VUNESP Provas e Gabaritos area currently redirects to candidate login.",
+    "Mirror provenance must remain explicit; this manifest does not relabel the mirrored exam PDF as official.",
+    "This corpus entry is an ingestion input, not automatic catalog publication."
+  ],
+  "collections": [
+    {
+      "id": "unesp",
+      "display_name": "UNESP",
+      "exams": [
+        {
+          "year": 2026,
+          "label": "UNESP Vestibular 2026 - 1ª fase - Versão 1",
+          "source_page": "https://www.vunesp.com.br/VNSP2504",
+          "source_authority": "mixed",
+          "files": [
+            {
+              "kind": "prova",
+              "filename": "2026-unesp-primeira-fase-versao-1-prova.pdf",
+              "url": "https://s3.glbimg.com/v1/AUTH_595b237b135e4899b878697d214a26e9/unesp_2026_resolucao_primeira_fase/PROVA_VERSAO_UM_UNESP_2026.pdf",
+              "authority": "mirror"
+            },
+            {
+              "kind": "gabarito",
+              "filename": "2026-unesp-primeira-fase-versao-1-gabarito.pdf",
+              "url": "https://documento.vunesp.com.br/documento/stream/NzQ2NDIxNg%3D%3D",
+              "authority": "official"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
