@@ -19,8 +19,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Check PDF text extractor
-        run: command -v pdftotext
+      - name: Install PDF text extractor
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y poppler-utils
 
       - name: Sanitize legacy archive
         run: python scripts/sanitize_fatec_legacy.py --input fatec.zip --output-dir .cache/fatec-sanitized
