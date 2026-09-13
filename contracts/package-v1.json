@@ -1,0 +1,65 @@
+{
+  "version": 1,
+  "description": "Resolved release-package contract consumed by Studium Labs ingestion adapters.",
+  "required_package_fields": [
+    "schema_version",
+    "package_id",
+    "collection",
+    "display_name",
+    "source",
+    "generated_from",
+    "exams"
+  ],
+  "required_exam_fields": [
+    "year",
+    "label",
+    "source_page",
+    "files"
+  ],
+  "reference_ingestion_exam_fields": [
+    "edition_id",
+    "phase",
+    "expected_questions",
+    "allowed_letters",
+    "answer_key_status",
+    "answer_key"
+  ],
+  "optional_exam_fields": [
+    "variant",
+    "source_authority"
+  ],
+  "required_file_fields": [
+    "kind",
+    "filename",
+    "url",
+    "sha256",
+    "size_bytes"
+  ],
+  "optional_file_provenance_fields": [
+    "authority",
+    "canonical_url",
+    "canonical_source_page",
+    "canonical_authority",
+    "verified_against_canonical"
+  ],
+  "supported_document_kinds": [
+    "prova",
+    "gabarito",
+    "gabarito-preliminar"
+  ],
+  "supported_answer_key_status": [
+    "preliminary",
+    "final",
+    "rectified",
+    "unknown"
+  ],
+  "current_product_response_scope": "single-choice",
+  "rules": [
+    "sha256 and size_bytes describe the exact fetched bytes used by the package",
+    "mirror bytes must not be relabeled as official",
+    "canonical authority and retrieval authority are separate dimensions",
+    "reference ingestion requires a complete 1..N answer key in the declared allowed_letters domain",
+    "package existence never implies automatic catalog publication",
+    "sum-of-propositions and open-response exams are outside current Studium Labs scope"
+  ]
+}
