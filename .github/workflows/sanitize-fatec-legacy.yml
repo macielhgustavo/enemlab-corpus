@@ -5,6 +5,7 @@ on:
     paths:
       - 'fatec.zip'
       - 'scripts/sanitize_fatec_legacy.py'
+      - 'scripts/normalize_fatec_answers.py'
       - '.github/workflows/sanitize-fatec-legacy.yml'
   workflow_dispatch:
 
@@ -18,8 +19,17 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Check PDF text extractor
+        run: command -v pdftotext
+
       - name: Sanitize legacy archive
         run: python scripts/sanitize_fatec_legacy.py --input fatec.zip --output-dir .cache/fatec-sanitized
+
+      - name: Normalize multiple-choice answer keys
+        run: >-
+          python scripts/normalize_fatec_answers.py
+          --sanitized-dir .cache/fatec-sanitized
+          --output .cache/fatec-sanitized/normalized.json
 
       - name: Save sanitized candidate
         uses: actions/upload-artifact@v4
@@ -27,6 +37,7 @@ jobs:
           name: fatec-sanitized-candidate
           path: |
             .cache/fatec-sanitized/manifest.json
+            .cache/fatec-sanitized/normalized.json
             .cache/fatec-sanitized/documents/
             .cache/fatec-sanitized.zip
           retention-days: 7
