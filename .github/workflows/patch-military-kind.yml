@@ -1,0 +1,36 @@
+name: Patch military legacy kind
+
+on:
+  push:
+    branches: [work/marinha-30]
+    paths:
+      - '.github/workflows/patch-military-kind.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: work/marinha-30
+      - name: Preserve legacy PDF default
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('.github/workflows/fetch-qconcursos-military.yml')
+          text = p.read_text(encoding='utf-8')
+          old = '                      kind = str(item.get("kind") or Path(filename).suffix.lstrip(".")).lower()'
+          new = '                      kind = str(item.get("kind") or "pdf").lower()'
+          if text.count(old) != 1:
+              raise RuntimeError(f'expected exactly one legacy kind anchor, found {text.count(old)}')
+          p.write_text(text.replace(old, new, 1), encoding='utf-8')
+          PY
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add .github/workflows/fetch-qconcursos-military.yml
+          git commit -m 'ci: preserve PDF default for legacy military manifests'
+          git push origin HEAD:work/marinha-30
