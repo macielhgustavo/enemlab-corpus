@@ -1,0 +1,25 @@
+name: Diagnose Marinha TLS
+
+on:
+  push:
+    branches: [work/marinha-30]
+    paths:
+      - '.github/workflows/diagnose-marinha-tls.yml'
+  workflow_dispatch:
+
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Inspect TLS chain
+        shell: bash
+        run: |
+          set -o pipefail
+          echo | openssl s_client -connect www.marinha.mil.br:443 -servername www.marinha.mil.br -showcerts 2>&1 | tee /tmp/tls.txt || true
+          awk '/-----BEGIN CERTIFICATE-----/{n++} n==1{print} /-----END CERTIFICATE-----/ && n==1{exit}' /tmp/tls.txt > /tmp/leaf.pem
+          echo '--- LEAF ---'
+          openssl x509 -in /tmp/leaf.pem -noout -subject -issuer -dates -fingerprint -sha256
+          echo '--- AIA ---'
+          openssl x509 -in /tmp/leaf.pem -noout -text | grep -A4 'Authority Information Access' || true
+          echo '--- SYSTEM VERIFY ---'
+          openssl verify -CAfile /etc/ssl/certs/ca-certificates.crt /tmp/leaf.pem || true
