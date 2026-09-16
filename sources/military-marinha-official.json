@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "source": "Marinha do Brasil",
-  "purpose": "Expand the military corpus with 30 editions exposed by official Marinha do Brasil / CIAGA archive pages. Each entry records the official archive page and an explicit direct document/archive URL. No inferred URLs are included.",
+  "purpose": "Expand the military corpus with 30 editions exposed by official Marinha do Brasil / CIAGA archive pages. Each entry records the official archive page and an explicit direct document/archive URL. No inferred URLs are included. Historical EFOMM archive links that currently return 404 are intentionally excluded.",
   "collections": [
     {
       "id": "escola-naval",
@@ -45,10 +45,6 @@
       "id": "efomm",
       "display_name": "EFOMM",
       "exams": [
-        {"year": 2007, "label": "EFOMM 2007", "source_page": "https://www.marinha.mil.br/ciaga/efommadmissao", "files": [{"role": "official-exam-archive", "filename": "efomm-2007.zip", "kind": "zip", "url": "https://www.marinha.mil.br/sites/www.marinha.mil.br.ciaga/files/PROVAS_2007.zip"}]},
-        {"year": 2008, "label": "EFOMM 2008", "source_page": "https://www.marinha.mil.br/ciaga/efommadmissao", "files": [{"role": "official-exam-archive", "filename": "efomm-2008.zip", "kind": "zip", "url": "https://www.marinha.mil.br/sites/www.marinha.mil.br.ciaga/files/PROVAS_2008.zip"}]},
-        {"year": 2009, "label": "EFOMM 2009", "source_page": "https://www.marinha.mil.br/ciaga/efommadmissao", "files": [{"role": "official-exam-archive", "filename": "efomm-2009.zip", "kind": "zip", "url": "https://www.marinha.mil.br/sites/www.marinha.mil.br.ciaga/files/PROVAS_2009.zip"}]},
-        {"year": 2010, "label": "EFOMM 2010", "source_page": "https://www.marinha.mil.br/ciaga/efommadmissao", "files": [{"role": "official-exam-archive", "filename": "efomm-2010.zip", "kind": "zip", "url": "https://www.marinha.mil.br/sites/www.marinha.mil.br.ciaga/files/PROVAS_2010.zip"}]},
         {"year": 2020, "label": "EFOMM 2020", "source_page": "https://www.marinha.mil.br/ciaga/efommadmissao", "files": [{"role": "official-exam-archive", "filename": "efomm-2020.zip", "kind": "zip", "url": "https://www.marinha.mil.br/ciaga/sites/www.marinha.mil.br.ciaga/files/EFOMM%202019%202020.zip"}]},
         {"year": 2021, "label": "EFOMM 2021", "source_page": "https://www.marinha.mil.br/ciaga/efommadmissao", "files": [{"role": "official-exam-archive", "filename": "efomm-2021.zip", "kind": "zip", "url": "https://www.marinha.mil.br/ciaga/sites/www.marinha.mil.br.ciaga/files/EFOMM%202020%202021.zip"}]}
       ]
@@ -57,6 +53,10 @@
       "id": "c-fsd-fn",
       "display_name": "Curso de Formação de Soldados Fuzileiros Navais",
       "exams": [
+        {"year": 2019, "label": "C-FSD-FN 2019", "source_page": "https://www.marinha.mil.br/cpesfn/provas-anteriores-c-fsd-fn", "files": [{"role": "official-exam-archive", "filename": "c-fsd-fn-2019.zip", "kind": "zip", "url": "https://www.marinha.mil.br/cpesfn/sites/www.marinha.mil.br.cpesfn/files/provasanterioresfsd/Prova%20-%202019.zip"}]},
+        {"year": 2020, "label": "C-FSD-FN 2020", "source_page": "https://www.marinha.mil.br/cpesfn/provas-anteriores-c-fsd-fn", "files": [{"role": "official-exam-archive", "filename": "c-fsd-fn-2020.zip", "kind": "zip", "url": "https://www.marinha.mil.br/cpesfn/sites/www.marinha.mil.br.cpesfn/files/provasanterioresfsd/Prova%20-%202020.zip"}]},
+        {"year": 2021, "label": "C-FSD-FN 2021", "source_page": "https://www.marinha.mil.br/cpesfn/provas-anteriores-c-fsd-fn", "files": [{"role": "official-exam-archive", "filename": "c-fsd-fn-2021.zip", "kind": "zip", "url": "https://www.marinha.mil.br/cpesfn/sites/www.marinha.mil.br.cpesfn/files/provasanterioresfsd/Prova%20-%202021.zip"}]},
+        {"year": 2022, "label": "C-FSD-FN 2022", "source_page": "https://www.marinha.mil.br/cpesfn/provas-anteriores-c-fsd-fn", "files": [{"role": "official-exam-archive", "filename": "c-fsd-fn-2022.zip", "kind": "zip", "url": "https://www.marinha.mil.br/cpesfn/sites/www.marinha.mil.br.cpesfn/files/provasanterioresfsd/Prova-2022.zip"}]},
         {"year": 2023, "label": "C-FSD-FN 2023", "source_page": "https://www.marinha.mil.br/cpesfn/provas-anteriores-c-fsd-fn", "files": [{"role": "official-exam-archive", "filename": "c-fsd-fn-2023.zip", "kind": "zip", "url": "https://www.marinha.mil.br/cpesfn/sites/www.marinha.mil.br.cpesfn/files/provasanterioresfsd/Prova%20-%202023.zip"}]},
         {"year": 2024, "label": "C-FSD-FN 2024", "source_page": "https://www.marinha.mil.br/cpesfn/provas-anteriores-c-fsd-fn", "files": [{"role": "official-exam-archive", "filename": "c-fsd-fn-2024.zip", "kind": "zip", "url": "https://www.marinha.mil.br/cpesfn/sites/www.marinha.mil.br.cpesfn/files/provasanterioresfsd/Prova%20-%202024.zip"}]},
         {"year": 2025, "label": "C-FSD-FN 2025", "source_page": "https://www.marinha.mil.br/cpesfn/provas-anteriores-c-fsd-fn", "files": [{"role": "official-exam-archive", "filename": "c-fsd-fn-2025.zip", "kind": "zip", "url": "https://www.marinha.mil.br/cpesfn/sites/www.marinha.mil.br.cpesfn/files/provasanterioresfsd/Prova%20-%202025.zip"}]},
