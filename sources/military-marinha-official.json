@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "source": "Marinha do Brasil",
+  "purpose": "Expand the military corpus with 30 live editions exposed by official Marinha do Brasil archive pages. Each entry records the official archive page and an explicit direct document/archive URL. No inferred URLs are included. EFOMM is documented separately because CIAGA's currently published historical ZIP links return 404 and therefore are not counted as live corpus editions.",
+  "collections": [
+    {
+      "id": "escola-naval",
+      "display_name": "Escola Naval",
+      "exams": [
+        {"year": 2020, "label": "Escola Naval 2020", "source_page": "https://www.marinha.mil.br/sspm/node/95", "files": [{"role": "official-exam-archive", "filename": "escola-naval-2020.zip", "kind": "zip", "url": "https://www.marinha.mil.br/sspm/sites/www.marinha.mil.br.sspm/files/provas/2020-.zip"}]},
+        {"year": 2021, "label": "Escola Naval 2021", "source_page": "https://www.marinha.mil.br/sspm/node/95", "files": [{"role": "official-exam-archive", "filename": "escola-naval-2021.zip", "kind": "zip", "url": "https://www.marinha.mil.br/sspm/sites/www.marinha.mil.br.sspm/files/provas/2021-.zip"}]},
+        {"year": 2022, "label": "Escola Naval 2022", "source_page": "https://www.marinha.mil.br/sspm/node/95", "files": [{"role": "official-exam-archive", "filename": "escola-naval-2022.zip", "kind": "zip", "url": "https://www.marinha.mil.br/sspm/sites/www.marinha.mil.br.sspm/files/provas/2022-CPAEN-2022_.zip"}]},
+        {"year": 2023, "label": "Escola Naval 2023", "source_page": "https://www.marinha.mil.br/sspm/node/95", "files": [{"role": "official-exam-archive", "filename": "escola-naval-2023.zip", "kind": "zip", "url": "https://www.marinha.mil.br/sspm/sites/www.marinha.mil.br.sspm/files/provas/2023-CPAEN.zip"}]},
+        {"year": 2024, "label": "Escola Naval 2024", "source_page": "https://www.marinha.mil.br/sspm/node/95", "files": [{"role": "official-exam-archive", "filename": "escola-naval-2024.zip", "kind": "zip", "url": "https://www.marinha.mil.br/sspm/sites/www.marinha.mil.br.sspm/files/provas/2024-CPAEN.zip"}]},
+        {"year": 2025, "label": "Escola Naval 2025", "source_page": "https://www.marinha.mil.br/sspm/node/95", "files": [{"role": "official-exam-archive", "filename": "escola-naval-2025.zip", "kind": "zip", "url": "https://www.marinha.mil.br/sspm/sites/www.marinha.mil.br.sspm/files/provas/EN%202025.zip"}]},
+        {"year": 2026, "label": "Escola Naval 2026", "source_page": "https://www.marinha.mil.br/sspm/node/95", "files": [{"role": "official-exam-archive", "filename": "escola-naval-2026.zip", "kind": "zip", "url": "https://www.marinha.mil.br/sspm/sites/www.marinha.mil.br.sspm/files/provas/ESCOLANAVAL%202026.zip"}]}
+      ]
+    },
+    {
+      "id": "colegio-naval",
+      "display_name": "Colégio Naval",
+      "exams": [
+        {"year": 2021, "label": "Colégio Naval 2021", "source_page": "https://www.marinha.mil.br/sspm/node/45", "files": [{"role": "official-exam-archive", "filename": "colegio-naval-2021.zip", "kind": "zip", "url": "https://www.marinha.mil.br/sspm/sites/www.marinha.mil.br.sspm/files/provas/2021-Prova%20Amarela-CPACN-2021_0.zip"}]},
+        {"year": 2022, "label": "Colégio Naval 2022", "source_page": "https://www.marinha.mil.br/sspm/node/45", "files": [{"role": "official-exam-archive", "filename": "colegio-naval-2022.zip", "kind": "zip", "url": "https://www.marinha.mil.br/sspm/sites/www.marinha.mil.br.sspm/files/provas/2022-CPACN_0.zip"}]},
+        {"year": 2023, "label": "Colégio Naval 2023", "source_page": "https://www.marinha.mil.br/sspm/node/45", "files": [{"role": "official-exam-archive", "filename": "colegio-naval-2023.zip", "kind": "zip", "url": "https://www.marinha.mil.br/sspm/sites/www.marinha.mil.br.sspm/files/provas/2023%20-CPACN_0.zip"}]},
+        {"year": 2024, "label": "Colégio Naval 2024", "source_page": "https://www.marinha.mil.br/sspm/node/45", "files": [{"role": "official-exam-archive", "filename": "colegio-naval-2024.zip", "kind": "zip", "url": "https://www.marinha.mil.br/sspm/sites/www.marinha.mil.br.sspm/files/provas/2024-CPACN-2024__0.zip"}]},
+        {"year": 2025, "label": "Colégio Naval 2025", "source_page": "https://www.marinha.mil.br/sspm/node/45", "files": [{"role": "official-exam-archive", "filename": "colegio-naval-2025.zip", "kind": "zip", "url": "https://www.marinha.mil.br/sspm/sites/www.marinha.mil.br.sspm/files/provas/2025-CPACN_0.zip"}]},
+        {"year": 2026, "label": "Colégio Naval 2026", "source_page": "https://www.marinha.mil.br/sspm/node/45", "files": [{"role": "official-exam-archive", "filename": "colegio-naval-2026.zip", "kind": "zip", "url": "https://www.marinha.mil.br/sspm/sites/www.marinha.mil.br.sspm/files/provas/CPACN-2026.zip"}]}
+      ]
+    },
+    {
+      "id": "eam",
+      "display_name": "Escolas de Aprendizes-Marinheiros",
+      "exams": [
+        {"year": 2020, "label": "EAM 2020", "source_page": "https://www.marinha.mil.br/sspm/escola-aprendizes/a-eam-provag", "files": [{"role": "official-exam", "filename": "eam-2020.pdf", "kind": "pdf", "url": "https://www.marinha.mil.br/sspm/sites/www.marinha.mil.br.sspm/files/provas/CPAEAM-2020_Prova_AMARELA.pdf"}]},
+        {"year": 2021, "label": "EAM 2021", "source_page": "https://www.marinha.mil.br/sspm/escola-aprendizes/a-eam-provag", "files": [{"role": "official-exam", "filename": "eam-2021.pdf", "kind": "pdf", "url": "https://www.marinha.mil.br/sspm/sites/www.marinha.mil.br.sspm/files/provas/CPAEAM-2021%20PROVA_Amarela.pdf"}]},
+        {"year": 2022, "label": "EAM 2022", "source_page": "https://www.marinha.mil.br/sspm/escola-aprendizes/a-eam-provag", "files": [{"role": "official-exam", "filename": "eam-2022.pdf", "kind": "pdf", "url": "https://www.marinha.mil.br/sspm/sites/www.marinha.mil.br.sspm/files/provas/PORTUGU%C3%8AS%20MATEM%C3%81TICA%20CI%C3%8ANCIAS%20INGL%C3%8AS-AMARELA.pdf"}]},
+        {"year": 2023, "label": "EAM 2023", "source_page": "https://www.marinha.mil.br/sspm/escola-aprendizes/a-eam-provag", "files": [{"role": "official-exam", "filename": "eam-2023.pdf", "kind": "pdf", "url": "https://www.marinha.mil.br/sspm/sites/www.marinha.mil.br.sspm/files/provas/CPAEAM-2023-PROVA%20AMARELA.pdf"}]},
+        {"year": 2024, "label": "EAM 2024", "source_page": "https://www.marinha.mil.br/sspm/escola-aprendizes/a-eam-provag", "files": [{"role": "official-exam", "filename": "eam-2024.pdf", "kind": "pdf", "url": "https://www.marinha.mil.br/sspm/sites/www.marinha.mil.br.sspm/files/provas/prova%20amarela.pdf"}]},
+        {"year": 2025, "label": "EAM 2025", "source_page": "https://www.marinha.mil.br/sspm/escola-aprendizes/a-eam-provag", "files": [{"role": "official-exam-archive", "filename": "eam-2025.zip", "kind": "zip", "url": "https://www.marinha.mil.br/sspm/sites/www.marinha.mil.br.sspm/files/provas/2025-CPAEAM%202025%20AMARELA.zip"}]},
+        {"year": 2026, "label": "EAM 2026", "source_page": "https://www.marinha.mil.br/sspm/escola-aprendizes/a-eam-provag", "files": [{"role": "official-exam-archive", "filename": "eam-2026.zip", "kind": "zip", "url": "https://www.marinha.mil.br/sspm/sites/www.marinha.mil.br.sspm/files/provas/CPAEAM.zip"}]}
+      ]
+    },
+    {
+      "id": "c-fsd-fn",
+      "display_name": "Curso de Formação de Soldados Fuzileiros Navais",
+      "exams": [
+        {"year": 2017, "label": "C-FSD-FN 2017", "source_page": "https://www.marinha.mil.br/cpesfn/provas-anteriores-c-fsd-fn", "files": [{"role": "official-exam-archive", "filename": "c-fsd-fn-2017.zip", "kind": "zip", "url": "https://www.marinha.mil.br/cpesfn/sites/www.marinha.mil.br.cpesfn/files/provasanterioresfsd/Prova%20-%202017.zip"}]},
+        {"year": 2018, "label": "C-FSD-FN 2018", "source_page": "https://www.marinha.mil.br/cpesfn/provas-anteriores-c-fsd-fn", "files": [{"role": "official-exam-archive", "filename": "c-fsd-fn-2018.zip", "kind": "zip", "url": "https://www.marinha.mil.br/cpesfn/sites/www.marinha.mil.br.cpesfn/files/provasanterioresfsd/Prova%20-%202018.zip"}]},
+        {"year": 2019, "label": "C-FSD-FN 2019", "source_page": "https://www.marinha.mil.br/cpesfn/provas-anteriores-c-fsd-fn", "files": [{"role": "official-exam-archive", "filename": "c-fsd-fn-2019.zip", "kind": "zip", "url": "https://www.marinha.mil.br/cpesfn/sites/www.marinha.mil.br.cpesfn/files/provasanterioresfsd/Prova%20-%202019.zip"}]},
+        {"year": 2020, "label": "C-FSD-FN 2020", "source_page": "https://www.marinha.mil.br/cpesfn/provas-anteriores-c-fsd-fn", "files": [{"role": "official-exam-archive", "filename": "c-fsd-fn-2020.zip", "kind": "zip", "url": "https://www.marinha.mil.br/cpesfn/sites/www.marinha.mil.br.cpesfn/files/provasanterioresfsd/Prova%20-%202020.zip"}]},
+        {"year": 2021, "label": "C-FSD-FN 2021", "source_page": "https://www.marinha.mil.br/cpesfn/provas-anteriores-c-fsd-fn", "files": [{"role": "official-exam-archive", "filename": "c-fsd-fn-2021.zip", "kind": "zip", "url": "https://www.marinha.mil.br/cpesfn/sites/www.marinha.mil.br.cpesfn/files/provasanterioresfsd/Prova%20-%202021.zip"}]},
+        {"year": 2022, "label": "C-FSD-FN 2022", "source_page": "https://www.marinha.mil.br/cpesfn/provas-anteriores-c-fsd-fn", "files": [{"role": "official-exam-archive", "filename": "c-fsd-fn-2022.zip", "kind": "zip", "url": "https://www.marinha.mil.br/cpesfn/sites/www.marinha.mil.br.cpesfn/files/provasanterioresfsd/Prova-2022.zip"}]},
+        {"year": 2023, "label": "C-FSD-FN 2023", "source_page": "https://www.marinha.mil.br/cpesfn/provas-anteriores-c-fsd-fn", "files": [{"role": "official-exam-archive", "filename": "c-fsd-fn-2023.zip", "kind": "zip", "url": "https://www.marinha.mil.br/cpesfn/sites/www.marinha.mil.br.cpesfn/files/provasanterioresfsd/Prova%20-%202023.zip"}]},
+        {"year": 2024, "label": "C-FSD-FN 2024", "source_page": "https://www.marinha.mil.br/cpesfn/provas-anteriores-c-fsd-fn", "files": [{"role": "official-exam-archive", "filename": "c-fsd-fn-2024.zip", "kind": "zip", "url": "https://www.marinha.mil.br/cpesfn/sites/www.marinha.mil.br.cpesfn/files/provasanterioresfsd/Prova%20-%202024.zip"}]},
+        {"year": 2025, "label": "C-FSD-FN 2025", "source_page": "https://www.marinha.mil.br/cpesfn/provas-anteriores-c-fsd-fn", "files": [{"role": "official-exam-archive", "filename": "c-fsd-fn-2025.zip", "kind": "zip", "url": "https://www.marinha.mil.br/cpesfn/sites/www.marinha.mil.br.cpesfn/files/provasanterioresfsd/Prova%20-%202025.zip"}]},
+        {"year": 2026, "label": "C-FSD-FN 2026", "source_page": "https://www.marinha.mil.br/cpesfn/provas-anteriores-c-fsd-fn", "files": [{"role": "official-exam-archive", "filename": "c-fsd-fn-2026.zip", "kind": "zip", "url": "https://www.marinha.mil.br/cpesfn/sites/www.marinha.mil.br.cpesfn/files/provasanterioresfsd/Prova%20-%202026.zip"}]}
+      ]
+    }
+  ]
+}
