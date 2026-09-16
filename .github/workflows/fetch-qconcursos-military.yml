@@ -1,17 +1,19 @@
-name: Fetch QConcursos military corpus
+name: Fetch military corpus
 
 on:
   push:
-    branches: [main]
+    branches: [main, work/marinha-30]
     paths:
-      - 'sources/qconcursos-military*.json'
+      - 'sources/*military*.json'
+      - 'sources/military-*.json'
+      - '.github/workflows/fetch-qconcursos-military.yml'
   workflow_dispatch:
 
 permissions:
   contents: write
 
 concurrency:
-  group: qconcursos-military-corpus
+  group: military-corpus-${{ github.ref }}
   cancel-in-progress: false
 
 jobs:
@@ -21,7 +23,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Download PDFs and build ZIPs
+      - name: Download source files and build packages
         shell: bash
         run: |
           python - <<'PY'
@@ -31,15 +33,20 @@ jobs:
           import shutil
           import time
           import urllib.request
+          import zipfile
           from pathlib import Path
 
-          manifest_paths = sorted(Path("sources").glob("qconcursos-military*.json"))
+          manifest_paths = sorted({
+              *Path("sources").glob("qconcursos-military*.json"),
+              *Path("sources").glob("military-*.json"),
+          })
           if not manifest_paths:
-              raise RuntimeError("no QConcursos military manifests found")
+              raise RuntimeError("no military corpus manifests found")
 
           merged = {}
           for manifest_path in manifest_paths:
               manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+              manifest_source = str(manifest.get("source") or "QConcursos")
               for collection in manifest["collections"]:
                   slug = collection["id"]
                   current = merged.setdefault(slug, {
@@ -47,33 +54,58 @@ jobs:
                       "display_name": collection["display_name"],
                       "exams": [],
                       "source_manifests": [],
+                      "sources": [],
                   })
                   current["exams"].extend(collection["exams"])
                   current["source_manifests"].append(str(manifest_path))
+                  source = str(collection.get("source") or manifest_source)
+                  if source not in current["sources"]:
+                      current["sources"].append(source)
 
-          work_root = Path(".cache/qconcursos-military")
+          work_root = Path(".cache/military-corpus")
           shutil.rmtree(work_root, ignore_errors=True)
           work_root.mkdir(parents=True, exist_ok=True)
 
           opener = urllib.request.build_opener()
           opener.addheaders = [
-              ("User-Agent", "Mozilla/5.0 (compatible; enemlab-corpus/1.0; +https://github.com/macielhgustavo/enemlab-corpus)"),
-              ("Accept", "application/pdf,*/*;q=0.8"),
+              ("User-Agent", "Mozilla/5.0 (compatible; enemlab-corpus/1.1; +https://github.com/macielhgustavo/enemlab-corpus)"),
+              ("Accept", "application/pdf,application/zip,application/octet-stream,*/*;q=0.8"),
           ]
 
-          def download(url: str, dest: Path) -> tuple[str, int]:
+          def validate_file(dest: Path, kind: str, url: str) -> None:
+              raw = dest.read_bytes()
+              if len(raw) < 1024:
+                  raise RuntimeError(f"download is implausibly small ({len(raw)} bytes): {url}")
+              if kind == "pdf":
+                  if not raw.lstrip().startswith(b"%PDF"):
+                      raise RuntimeError(f"download is not a valid PDF: {url}")
+              elif kind == "zip":
+                  if not zipfile.is_zipfile(dest):
+                      raise RuntimeError(f"download is not a valid ZIP: {url}")
+                  with zipfile.ZipFile(dest) as archive:
+                      members = [info for info in archive.infolist() if not info.is_dir()]
+                      if not members:
+                          raise RuntimeError(f"ZIP archive is empty: {url}")
+                      if any(info.file_size < 0 or info.compress_size < 0 for info in members):
+                          raise RuntimeError(f"ZIP has invalid member metadata: {url}")
+                      bad = archive.testzip()
+                      if bad is not None:
+                          raise RuntimeError(f"ZIP CRC failed at {bad}: {url}")
+              else:
+                  raise RuntimeError(f"unsupported source kind {kind!r}: {url}")
+
+          def download(url: str, dest: Path, kind: str) -> tuple[str, int]:
               last_error = None
               for attempt in range(4):
                   try:
-                      with opener.open(url, timeout=60) as response, dest.open("wb") as out:
+                      with opener.open(url, timeout=90) as response, dest.open("wb") as out:
                           while True:
                               chunk = response.read(1024 * 1024)
                               if not chunk:
                                   break
                               out.write(chunk)
+                      validate_file(dest, kind, url)
                       raw = dest.read_bytes()
-                      if len(raw) < 1024 or not raw.startswith(b"%PDF"):
-                          raise RuntimeError(f"download is not a valid PDF: {url}")
                       return hashlib.sha256(raw).hexdigest(), len(raw)
                   except Exception as exc:
                       last_error = exc
@@ -93,41 +125,27 @@ jobs:
           packages = []
           for collection in merged.values():
               slug = collection["id"]
+              common = {
+                  "collection_id": slug,
+                  "display_name": collection["display_name"],
+                  "source_manifests": collection["source_manifests"],
+                  "sources": collection["sources"],
+              }
               if slug == "eear":
                   groups = {}
                   for exam in collection["exams"]:
                       year = int(exam["year"])
                       groups.setdefault(eear_bucket(year), []).append(exam)
                   for package_id, exams in sorted(groups.items()):
-                      packages.append({
-                          "package_id": package_id,
-                          "collection_id": slug,
-                          "display_name": collection["display_name"],
-                          "exams": exams,
-                          "source_manifests": collection["source_manifests"],
-                      })
+                      packages.append({**common, "package_id": package_id, "exams": exams})
               elif slug == "esa":
-                  exams = [
-                      exam for exam in collection["exams"]
-                      if "geral" in exam.get("label", "").lower()
-                  ]
-                  packages.append({
-                      "package_id": slug,
-                      "collection_id": slug,
-                      "display_name": collection["display_name"],
-                      "exams": exams,
-                      "source_manifests": collection["source_manifests"],
-                  })
+                  exams = [exam for exam in collection["exams"] if "geral" in exam.get("label", "").lower()]
+                  packages.append({**common, "package_id": slug, "exams": exams})
               else:
-                  packages.append({
-                      "package_id": slug,
-                      "collection_id": slug,
-                      "display_name": collection["display_name"],
-                      "exams": collection["exams"],
-                      "source_manifests": collection["source_manifests"],
-                  })
+                  packages.append({**common, "package_id": slug, "exams": collection["exams"]})
 
           built = []
+          total_exams = 0
           for package in packages:
               package_id = package["package_id"]
               collection_dir = work_root / package_id
@@ -145,33 +163,34 @@ jobs:
                       if filename in seen_filenames:
                           raise RuntimeError(f"duplicate filename in {package_id}: {filename}")
                       seen_filenames.add(filename)
+                      kind = str(item.get("kind") or Path(filename).suffix.lstrip(".")).lower()
+                      if kind not in {"pdf", "zip"}:
+                          raise RuntimeError(f"{exam.get('label')}: unsupported file kind {kind!r}")
                       dest = collection_dir / filename
-                      sha256, size = download(item["url"], dest)
-                      resolved_files.append({
-                          **item,
-                          "sha256": sha256,
-                          "size_bytes": size,
-                      })
-                      print(f"{package_id}: {dest.name} {size} bytes {sha256}")
+                      sha256, size = download(item["url"], dest, kind)
+                      resolved_files.append({**item, "kind": kind, "sha256": sha256, "size_bytes": size})
+                      print(f"{package_id}: {dest.name} {kind} {size} bytes {sha256}")
                   resolved_exam["files"] = resolved_files
                   resolved.append(resolved_exam)
+                  total_exams += 1
 
               packaged_manifest = {
                   "schema_version": 1,
                   "package_id": package_id,
                   "collection": package["collection_id"],
                   "display_name": package["display_name"],
-                  "source": "QConcursos",
+                  "source": package["sources"][0] if len(package["sources"]) == 1 else package["sources"],
                   "generated_from": package["source_manifests"],
                   "exams": resolved,
               }
               (collection_dir / "manifest.json").write_text(
-                  json.dumps(packaged_manifest, ensure_ascii=False, indent=2) + "\n",
-                  encoding="utf-8",
+                  json.dumps(packaged_manifest, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
               )
 
               hashes = []
-              for path in sorted(collection_dir.glob("*.pdf")):
+              for path in sorted(collection_dir.iterdir()):
+                  if not path.is_file() or path.name in {"manifest.json", "SHA256SUMS.txt"}:
+                      continue
                   hashes.append(f"{hashlib.sha256(path.read_bytes()).hexdigest()}  {path.name}")
               (collection_dir / "SHA256SUMS.txt").write_text("\n".join(hashes) + "\n", encoding="utf-8")
 
@@ -184,25 +203,42 @@ jobs:
                   raise RuntimeError(f"{zip_path} reached 95 MiB; split this package into a smaller year range")
               built.append({
                   "asset": zip_path.name,
+                  "collection": package["collection_id"],
+                  "exam_count": len(resolved),
                   "size_bytes": size,
                   "sha256": hashlib.sha256(zip_path.read_bytes()).hexdigest(),
               })
 
           release_index = {
-              "schema_version": 1,
+              "schema_version": 2,
               "release_tag": "corpus-latest",
               "source_commit": os.environ.get("GITHUB_SHA"),
               "source_manifests": [str(path) for path in manifest_paths],
+              "exam_count": total_exams,
               "assets": built,
           }
           Path("corpus-release.json").write_text(
-              json.dumps(release_index, ensure_ascii=False, indent=2) + "\n",
-              encoding="utf-8",
+              json.dumps(release_index, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
           )
           print(json.dumps(release_index, indent=2))
           PY
 
+      - name: Upload validation artifact
+        if: github.ref != 'refs/heads/main'
+        uses: actions/upload-artifact@v4
+        with:
+          name: military-corpus-validation
+          path: |
+            corpus-release.json
+            escola-naval.zip
+            colegio-naval.zip
+            eam.zip
+            efomm.zip
+            c-fsd-fn.zip
+          retention-days: 2
+
       - name: Publish corpus release assets
+        if: github.ref == 'refs/heads/main'
         shell: bash
         env:
           GH_TOKEN: ${{ github.token }}
@@ -217,4 +253,10 @@ jobs:
             gh release create "$TAG" --target "$GITHUB_SHA" --title "$TITLE" --notes "$NOTES"
           fi
 
-          gh release upload "$TAG" eear-*.zip esa.zip espcex.zip corpus-release.json --clobber
+          mapfile -t ASSETS < <(python - <<'PY'
+          import json
+          for item in json.load(open('corpus-release.json', encoding='utf-8'))['assets']:
+              print(item['asset'])
+          PY
+          )
+          gh release upload "$TAG" "${ASSETS[@]}" corpus-release.json --clobber
