@@ -95,14 +95,14 @@ jobs:
               ("Accept", "application/pdf,application/zip,application/octet-stream,*/*;q=0.8"),
           ]
 
-          def validate_file(dest: Path, kind: str, url: str) -> None:
+          def validate_file(dest: Path, file_format: str, url: str) -> None:
               raw = dest.read_bytes()
               if len(raw) < 1024:
                   raise RuntimeError(f"download is implausibly small ({len(raw)} bytes): {url}")
-              if kind == "pdf":
+              if file_format == "pdf":
                   if not raw.lstrip().startswith(b"%PDF"):
                       raise RuntimeError(f"download is not a valid PDF: {url}")
-              elif kind == "zip":
+              elif file_format == "zip":
                   if not zipfile.is_zipfile(dest):
                       raise RuntimeError(f"download is not a valid ZIP: {url}")
                   with zipfile.ZipFile(dest) as archive:
@@ -113,9 +113,9 @@ jobs:
                       if bad is not None:
                           raise RuntimeError(f"ZIP CRC failed at {bad}: {url}")
               else:
-                  raise RuntimeError(f"unsupported source kind {kind!r}: {url}")
+                  raise RuntimeError(f"unsupported source format {file_format!r}: {url}")
 
-          def download(url: str, dest: Path, kind: str) -> tuple[str, int]:
+          def download(url: str, dest: Path, file_format: str) -> tuple[str, int]:
               last_error = None
               for attempt in range(4):
                   try:
@@ -125,7 +125,7 @@ jobs:
                               if not chunk:
                                   break
                               out.write(chunk)
-                      validate_file(dest, kind, url)
+                      validate_file(dest, file_format, url)
                       raw = dest.read_bytes()
                       return hashlib.sha256(raw).hexdigest(), len(raw)
                   except Exception as exc:
@@ -184,13 +184,24 @@ jobs:
                       if filename in seen_filenames:
                           raise RuntimeError(f"duplicate filename in {package_id}: {filename}")
                       seen_filenames.add(filename)
-                      kind = str(item.get("kind") or "pdf").lower()
-                      if kind not in {"pdf", "zip"}:
-                          raise RuntimeError(f"{exam.get('label')}: unsupported file kind {kind!r}")
+
+                      declared_kind = str(item.get("kind") or "").lower()
+                      declared_format = str(item.get("format") or "").lower()
+                      if declared_format:
+                          file_format = declared_format
+                      elif declared_kind in {"pdf", "zip"}:
+                          file_format = declared_kind
+                      else:
+                          # Schema v1 QConcursos manifests use `kind` as a role
+                          # (`prova`/`gabarito`), and every such legacy file is PDF.
+                          file_format = "pdf"
+                      if file_format not in {"pdf", "zip"}:
+                          raise RuntimeError(f"{exam.get('label')}: unsupported file format {file_format!r}")
+
                       dest = collection_dir / filename
-                      sha256, size = download(item["url"], dest, kind)
-                      resolved_files.append({**item, "kind": kind, "sha256": sha256, "size_bytes": size})
-                      print(f"{package_id}: {dest.name} {kind} {size} bytes {sha256}")
+                      sha256, size = download(item["url"], dest, file_format)
+                      resolved_files.append({**item, "format": file_format, "sha256": sha256, "size_bytes": size})
+                      print(f"{package_id}: {dest.name} {file_format} {size} bytes {sha256}")
                   resolved_exam["files"] = resolved_files
                   resolved.append(resolved_exam)
                   total_exams += 1
