@@ -184,7 +184,7 @@ jobs:
                       if filename in seen_filenames:
                           raise RuntimeError(f"duplicate filename in {package_id}: {filename}")
                       seen_filenames.add(filename)
-                      kind = str(item.get("kind") or Path(filename).suffix.lstrip(".")).lower()
+                      kind = str(item.get("kind") or "pdf").lower()
                       if kind not in {"pdf", "zip"}:
                           raise RuntimeError(f"{exam.get('label')}: unsupported file kind {kind!r}")
                       dest = collection_dir / filename
@@ -254,7 +254,6 @@ jobs:
             escola-naval.zip
             colegio-naval.zip
             eam.zip
-            efomm.zip
             c-fsd-fn.zip
           retention-days: 2
 
