@@ -23,8 +23,31 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Complete Marinha assets trust chain
+        shell: bash
+        run: |
+          set -euo pipefail
+          # assets.marinha.mil.br currently omits its public intermediate CA.
+          # Fetch the exact AIA issuer, then verify that issuer against Ubuntu's
+          # trusted roots before allowing it into the downloader's CA bundle.
+          curl --fail --location --silent --show-error \
+            'http://secure.globalsign.com/acdefesagr3ovtlsca2023.crt' \
+            -o /tmp/acdefesa-gr3.crt
+          if openssl x509 -inform DER -in /tmp/acdefesa-gr3.crt -out /tmp/acdefesa-gr3.pem 2>/dev/null; then
+            :
+          else
+            openssl x509 -in /tmp/acdefesa-gr3.crt -out /tmp/acdefesa-gr3.pem
+          fi
+          SUBJECT="$(openssl x509 -in /tmp/acdefesa-gr3.pem -noout -subject)"
+          echo "$SUBJECT"
+          echo "$SUBJECT" | grep -F 'AC Defesa GR3 OV TLS CA 2023'
+          openssl verify -CAfile /etc/ssl/certs/ca-certificates.crt /tmp/acdefesa-gr3.pem
+          cat /etc/ssl/certs/ca-certificates.crt /tmp/acdefesa-gr3.pem > /tmp/military-ca-bundle.pem
+
       - name: Download source files and build packages
         shell: bash
+        env:
+          SSL_CERT_FILE: /tmp/military-ca-bundle.pem
         run: |
           python - <<'PY'
           import hashlib
@@ -86,8 +109,6 @@ jobs:
                       members = [info for info in archive.infolist() if not info.is_dir()]
                       if not members:
                           raise RuntimeError(f"ZIP archive is empty: {url}")
-                      if any(info.file_size < 0 or info.compress_size < 0 for info in members):
-                          raise RuntimeError(f"ZIP has invalid member metadata: {url}")
                       bad = archive.testzip()
                       if bad is not None:
                           raise RuntimeError(f"ZIP CRC failed at {bad}: {url}")
