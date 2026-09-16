@@ -2,7 +2,7 @@ name: Fetch military corpus
 
 on:
   push:
-    branches: [main, work/marinha-30]
+    branches: [main]
     paths:
       - 'sources/*military*.json'
       - 'sources/military-*.json'
