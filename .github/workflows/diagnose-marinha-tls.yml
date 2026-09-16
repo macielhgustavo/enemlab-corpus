@@ -11,7 +11,7 @@ jobs:
   diagnose:
     runs-on: ubuntu-latest
     steps:
-      - name: Inspect TLS chain
+      - name: Inspect TLS chain and archive redirect
         shell: bash
         run: |
           set -o pipefail
@@ -19,7 +19,7 @@ jobs:
           awk '/-----BEGIN CERTIFICATE-----/{n++} n==1{print} /-----END CERTIFICATE-----/ && n==1{exit}' /tmp/tls.txt > /tmp/leaf.pem
           echo '--- LEAF ---'
           openssl x509 -in /tmp/leaf.pem -noout -subject -issuer -dates -fingerprint -sha256
-          echo '--- AIA ---'
-          openssl x509 -in /tmp/leaf.pem -noout -text | grep -A4 'Authority Information Access' || true
-          echo '--- SYSTEM VERIFY ---'
-          openssl verify -CAfile /etc/ssl/certs/ca-certificates.crt /tmp/leaf.pem || true
+          echo '--- CHAIN VERIFY AS SERVED ---'
+          echo | openssl s_client -connect www.marinha.mil.br:443 -servername www.marinha.mil.br -verify_return_error 2>&1 | grep -E 'Verification:|Verify return code|depth=' || true
+          echo '--- CURL HEAD / REDIRECTS ---'
+          curl --fail --location --head --show-error --max-time 30 --retry 1 'https://www.marinha.mil.br/sspm/sites/www.marinha.mil.br.sspm/files/provas/2020-.zip' || true
